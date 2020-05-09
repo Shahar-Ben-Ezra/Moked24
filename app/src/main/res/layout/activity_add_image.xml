@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvRegular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:paddingTop="10dp"
+            android:text=" דיגיטלית"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+        <TextView
+            android:id="@+id/tvTHR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="115dp"
+            android:paddingTop="10dp"
+            android:text=" תרמית"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/Ll2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="20dp"
+            android:contentDescription="TODO"
+            android:elevation="50dp"
+            app:srcCompat="@drawable/download" />
+
+        <ImageView
+            android:id="@+id/iv1"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginStart="40dp"
+            android:contentDescription="TODO"
+            android:elevation="50dp"
+            app:srcCompat="@drawable/download" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Ll21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+
+
+        <ImageButton
+            android:id="@+id/BtnPickdig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40sp"
+            android:layout_marginTop="10sp"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
+
+        <ImageButton
+            android:id="@+id/imageGallerydig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5sp"
+            android:layout_marginTop="10sp"
+            app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/BtnPick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="65sp"
+                android:layout_marginTop="10sp"
+                app:srcCompat="@android:drawable/ic_menu_camera" />
+
+            <ImageButton
+                android:id="@+id/imageGallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5sp"
+                android:layout_marginTop="10sp"
+                app:srcCompat="@android:drawable/ic_menu_gallery" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvEX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="280dp"
+        android:paddingTop="10dp"
+        android:text=" פירוט:"
+        android:textSize="20sp"
+        android:textStyle="bold|italic" />
+
+    <Spinner
+        android:paddingTop="10dp"
+        android:id="@+id/spinnerInputType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="viewEnd" />
+
+    <EditText
+        android:id="@+id/etDISC"
+        android:layout_width="302dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:hint="@string/write_a_description"
+        android:maxLines="5"
+        android:minLines="1"
+        android:paddingTop="10dp"
+        android:importantForAutofill="no"
+        android:inputType="" />
+    <LinearLayout
+        android:id="@+id/Ll3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+        <Button
+            android:id="@+id/btn_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="24dp"
+            android:layout_marginStart="78dp"
+            android:text="@string/cancel" tools:targetApi="o"/>
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="24dp"
+            android:layout_marginStart="38dp"
+            android:text="@string/save" />
+
+    </LinearLayout>
+
+</LinearLayout>

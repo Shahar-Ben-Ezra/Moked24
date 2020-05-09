@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="16dp"
+    android:autoMirrored="true"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoMirrored="true"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/costumerName"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:maxLines="2"
+            android:minLines="1"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/costumerName"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoMirrored="true"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/workers"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:minLines="1"/>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/workersName"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoMirrored="true"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/address"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:minLines="1"/>
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/address"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoMirrored="true"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/propertyDescription"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:minLines="1"/>
+
+
+        <TextView
+            android:id="@+id/textView115"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/propertyDescription"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/addPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="PressActivity"
+        android:layout_below="@id/textView115"
+        android:layout_marginVertical="20dp"
+        android:text="@string/addPhoto"/>
+    <TextView
+        android:id="@+id/textViewNumberOfImages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/continueRecommendation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="PressActivity"
+        android:layout_marginVertical="20dp"
+        android:text="המשך למסקנות והמלצות"/>
+
+
+</LinearLayout>

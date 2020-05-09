@@ -1,0 +1,85 @@
+<resources>
+    <integer name="locale_mirror_flip">0</integer>
+
+    <string name="app_name">My ApplicationPdf</string>
+    <string name="title_activity_opdf">OPdf</string>
+    <string name="title_activity_create_pdf_file">createPdfFile</string>
+    <string name="propertyDescription">תיאור הנכס</string>
+    <string name="costumerName">שם לקוח</string>
+    <string name="address">כתובת:</string>
+    <string name="workersName">שמות הסורקים:</string>
+    <string name="callNumber">מס קריאה</string>
+    <string name="addPhoto">הוסף תמונה</string>
+    <string name="create">צור קובץ</string>
+    <string name="SendPdf">שלח קובץ</string>
+    <string name="showPdf">הראה קובץ נוכחי</string>
+    <string name="hmercazName">המוקד לאיתור נזילות</string>
+    <string name="firstCreate">קודם צור קובץ Pdf</string>
+    <string name="image">תמונה</string>
+    <string name="description">  פירוט:</string>
+    <string name="write_a_description">הכנס פירוט</string>
+    <string name="save">שמור</string>
+    <string name="cancel">ביטול</string>
+    <string name="need">לא מילאת את כל הפרטים</string>
+    <string name="you_add">הוספת תמונה לקובץ</string>
+    <string name="data">data</string>
+    <string name="digital">דיגיטלית</string>
+    <string name="evidences">ממצאים</string>
+    <string name="thermal">תרמית</string>
+    <string name="headlineResonForChecking">הסיבה לבדיקה:</string>
+    <string name="headlineCheckingElements">האלמנטים הנבדקים:</string>
+    <string name="headlinePropertyExplanation">תיאור הנכס:</string>
+    <string name="headlineInspection">הוזמנתי לחוות את דעתי בנושא איתור נזילה, בבדיקה תרמוגרפית  בהתאם לכך עובד מחברתנו ערך ביקורת</string>
+    <string name="headlineBeyondTheFindings">מעבר על הממצאים:</string>
+    <string name="headlineFinding">ממצאים</string>
+    <string name="headlineInHonorOf">לכבוד:</string>
+    <string name="headlineAuditDate">תאריך ביקורת:</string>
+    <string name="headlineNumber">מס\' קריאה:</string>
+    <string name="headlineWorkersName">שמות הסורקים:</string>
+    <string name="headineAddress">כתובת:</string>
+    <string name="certificateOfApproval">הנני מאשר בזאת שערך עובד מטעם חברתנו סריקה תרמו גרפית באמצעים הבאים: :</string>
+    <string name="donePdf">קובץ pdf נוצר</string>
+    <string name="conclusion">מסקנות</string>
+
+
+    <string name="explainEvidence">
+    " אנו מבצעים צילום תרמי ובמקביל צילום דיגיטלי כדי להמחיש לקורא את חוות\n"
+    "הדעת באופן ברור וקליט. ניתן לזהות שבתמונה התרמית הצבע הכחול / סגול, מסמל\n"
+    "טמפרטורה נמוכה אזור רטוב /לח/קר הצבע האדום מסמל אזור חם/יבש. יש\n"
+    "להתייחס לכל סריקה/צילום בנפרד. הבדיקה מתייחסת למצב הנכס ביום הבדיקה\n"
+    "בלבד. ההמלצות לביצוע נערכו על פי דוח הממצאים בלבד, ואינן ערובה מוחלטת\n"
+    "להצלחה. במהלך ביצוע העבודות איתכן שהתגלו ליקוים נוספים(פגמים נסתרים)\n"
+    "שתיקונם יידרש, בהתאם לקביעת בעלי מקצוע שיבצעו את העבודות."
+    </string>
+    <string name="Mursa">עוסק מורשה מס\' 203179395</string>
+    <string name="phonNumber">054-5600585</string>
+    <string name="website">www.moked24-7.co.il</string>
+    <string name="mail">company@moked24-7.co.il</string>
+    <string name="waterSystem">מערכות מים</string>
+    <string name="sealingSystem">מערכות איטום</string>
+    <string name="sewageSystem">מערכות ניקוז ביוב</string>
+    <string name="recommendationsForMaking">המלצות לביצוע</string>
+
+    <string name="explainEvidence1">
+    " ההמלצה שעבודות יבוצעו על ידי בעל מקצוע מוסמך בנוסף,מומלץ שבעל \n"
+    "המקצוע שמבצע את העבודות יתעדכן עם הבודק מחברתנו.\n"
+    "כך שהעבודה תתנהל בצורה מקצועית ובשקיפות מלאה.\n"
+    </string>
+    <string name="openExistedFiles">פתח קבצים קיימים</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string-array name="spinner">
+        <item>בחר פירוט מובנה</item>
+    </string-array>
+    <string-array name="ui_spinner">
+        <item>זוהתה חדירת מים המגיעה מכיוון.</item>
+        <item>זוהה איטום לקוי.</item>
+        <item>זוהה מעבר רטיבות מכיוון.</item>
+        <item>ניתן לזהות עלייה קאפלארית בקיר.</item>
+        <item>זוהתה נזילת מים בצנרת.</item>
+        <item>בוצעה בדיקת הצפה לצנרת דלוחין נמצא תקין.</item>
+        <item>בוצעה בדיקת הצפה לצנרת דלוחין נמצא לא תקין.</item>
+        <item>"בוצעה בדיקת לחץ לצנרת מים \n חמים/ קרים נמצא תקין."</item>
+
+    </string-array>
+</resources>
+
