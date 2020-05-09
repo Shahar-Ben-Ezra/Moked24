@@ -1,6 +1,5 @@
 package shaharben_ezra.moked24;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,7 +23,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -195,7 +193,7 @@ public class addImage extends AppCompatActivity {
                 iv1.setDrawingCacheEnabled(true);
                 iv1.buildDrawingCache();
                 imageBitmapthr = Bitmap.createBitmap(iv1.getDrawingCache());
-                
+
             } else {
                 iv.setImageURI(ImageUri);
                 iv.setDrawingCacheEnabled(true);
