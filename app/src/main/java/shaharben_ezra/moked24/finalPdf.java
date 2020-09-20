@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static shaharben_ezra.moked24.DatePickerFragment.changeDate;
+
 public class finalPdf extends AppCompatActivity {
     private static pdfObj pdfObj;
     private static final int STORAGE_CODE = 1000;
@@ -118,8 +120,14 @@ public class finalPdf extends AppCompatActivity {
         Canvas canvas = page.getCanvas();
         Paint paint = new Paint();
         SymbolsEachPage(canvas, paint, 1);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String sCertDate = dateFormat.format(new Date());
+        String sCertDate = changeDate;
+        if(changeDate == ""){
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            sCertDate = dateFormat.format(new Date());
+
+        }
+        changeDate = "";
+
         paint.setTextAlign(Paint.Align.RIGHT);
         paint.setFakeBoldText(true);
         paint.setTextSize(13);

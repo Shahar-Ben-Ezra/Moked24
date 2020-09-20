@@ -1,5 +1,4 @@
 <resources>
-    <integer name="locale_mirror_flip">0</integer>
 
     <string name="app_name">My ApplicationPdf</string>
     <string name="title_activity_opdf">OPdf</string>

@@ -114,12 +114,19 @@
          android:textSize="20sp" />
 
     <Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="20dp"
+    android:text="שנה תאריך "
+    android:onClick="showDatePickerDialog" />
+
+
+    <Button
         android:id="@+id/continueRecommendation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="PressActivity"
-        android:layout_marginVertical="20dp"
+        android:layout_marginVertical="5dp"
         android:text="המשך למסקנות והמלצות"/>
-
 
 </LinearLayout>
