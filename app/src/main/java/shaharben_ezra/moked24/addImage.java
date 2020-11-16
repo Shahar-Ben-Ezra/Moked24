@@ -9,8 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -68,15 +68,12 @@ public class addImage extends AppCompatActivity {
         dataAdapter.setDropDownViewResource(R.layout.simple_spinner_item);
         //attaching data adapter to spinner
         spinnerInputType.setAdapter(dataAdapter);
-
         spinnerInputType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //METHOD 1: Get text from selected item's position & set it to TextView
                 itemSelected = parent.getItemAtPosition(position).toString();
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -88,10 +85,6 @@ public class addImage extends AppCompatActivity {
             public void onClick(View v) {/// take a picture
                 whichImage = "digital";
                 dispatchTakePictureIntent();
-//                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {/// if its possible to open a camera
-//                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);// getPackageManager -- bring all the app in the phone
-//                }
             }
         });
         imageGalleryig.setOnClickListener(new View.OnClickListener() {
@@ -108,11 +101,6 @@ public class addImage extends AppCompatActivity {
             public void onClick(View v) {/// take a picture
                 whichImage = "thermal";
                 dispatchTakePictureIntent();
-
-//                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {/// if its possible to open a camera
-//                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);// getPackageManager -- bring all the app in the phone
-//                }
             }
         });
         imageGalleryThr.setOnClickListener(new View.OnClickListener() {
@@ -143,13 +131,9 @@ public class addImage extends AppCompatActivity {
                 StartCreatePdfFile.evidenceArrayList.add(evidence);
                 Toast.makeText(addImage.this, getString(R.string.you_add), Toast.LENGTH_SHORT).show();
                 addImage.this.finish();
-
             }
         });
-
-
     }
-
 
     /**
      * get the results from the camera or the results from gallery
@@ -161,39 +145,36 @@ public class addImage extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (whichImage.equals("thermal")) {
                 imageBitmapthr = BitmapFactory.decodeFile(currentPhotoPath);// all the picture is Bitmap
 
 //                iv1.setImageBitmap(imageBitmapthr);
                 try {
-                    Bitmap bitmap=fixingRotaitonx(currentPhotoPath, imageBitmapthr);
+                    Bitmap bitmap = fixingRotaitonx(currentPhotoPath, imageBitmapthr);
                     iv1.setImageBitmap(bitmap);
-                    imageBitmapthr=bitmap;
+                    imageBitmapthr = bitmap;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
                 imageBitmap = BitmapFactory.decodeFile(currentPhotoPath);// all the picture is Bitmap
-//                iv.setImageBitmap(imageBitmap);
-
                 try {
-                    Bitmap bitmap=fixingRotaitonx(currentPhotoPath, imageBitmap);
+                    Bitmap bitmap = fixingRotaitonx(currentPhotoPath, imageBitmap);
                     iv.setImageBitmap(bitmap);
-                    imageBitmap=bitmap;
+                    imageBitmap = bitmap;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         } else if ((requestCode == PICK_IMAGE && resultCode == RESULT_OK)) {
             Uri ImageUri = data.getData();
-
             if (whichImage.equals("thermal")) {
                 iv1.setImageURI(ImageUri);
                 iv1.setDrawingCacheEnabled(true);
                 iv1.buildDrawingCache();
                 imageBitmapthr = Bitmap.createBitmap(iv1.getDrawingCache());
-
             } else {
                 iv.setImageURI(ImageUri);
                 iv.setDrawingCacheEnabled(true);
@@ -207,22 +188,17 @@ public class addImage extends AppCompatActivity {
         ExifInterface ei = new ExifInterface(photoPath);
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
                 ExifInterface.ORIENTATION_UNDEFINED);
-
         Bitmap rotatedBitmap = null;
         switch (orientation) {
-
             case ExifInterface.ORIENTATION_ROTATE_90:
                 rotatedBitmap = rotateImage(bitmap, 90);
                 break;
-
             case ExifInterface.ORIENTATION_ROTATE_180:
                 rotatedBitmap = rotateImage(bitmap, 180);
                 break;
-
             case ExifInterface.ORIENTATION_ROTATE_270:
                 rotatedBitmap = rotateImage(bitmap, 270);
                 break;
-
             case ExifInterface.ORIENTATION_NORMAL:
             default:
                 rotatedBitmap = bitmap;
@@ -247,13 +223,10 @@ public class addImage extends AppCompatActivity {
                 ".jpg",         /* suffix */
                 storageDir      /* directory */
         );
-
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }
-
-
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -276,15 +249,4 @@ public class addImage extends AppCompatActivity {
             }
         }
     }
-
-
-//    private void galleryAddPic() {
-//        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-//        File f = new File(currentPhotoPath);
-//        Uri contentUri = Uri.fromFile(f);
-//        mediaScanIntent.setData(contentUri);
-//        this.sendBroadcast(mediaScanIntent);
-//    }
-
-
 }

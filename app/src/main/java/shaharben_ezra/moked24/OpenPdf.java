@@ -1,7 +1,7 @@
 package shaharben_ezra.moked24;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.barteksc.pdfviewer.PDFView;
 
@@ -17,5 +17,4 @@ public class OpenPdf extends AppCompatActivity {
         File filePath = new File(finalPdf.targetPdf);
         pdfView.fromFile(filePath).load();
     }
-
 }

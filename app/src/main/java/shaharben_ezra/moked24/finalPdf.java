@@ -11,8 +11,10 @@ import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -38,11 +40,11 @@ public class finalPdf extends AppCompatActivity {
     public static String targetPdf = "";
     private EditText waterSystem, SealingSystem, SewageSystem, RecommendationsForMaking;
     public static boolean finishFlag = false;
-    private static String watersS ="";
-    private static String SewageS ="";
-    private static String SealingS ="";
-    private static String Recommendations ="";
-    private static boolean finishingPdf=false;
+    private static String watersS = "";
+    private static String SewageS = "";
+    private static String SealingS = "";
+    private static String Recommendations = "";
+    private static boolean finishingPdf = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,17 +60,14 @@ public class finalPdf extends AppCompatActivity {
         SealingSystem.setText(SewageS);
         SewageSystem.setText(SealingS);
         RecommendationsForMaking.setText(Recommendations);
-
     }
 
     public void PressButtonActivity(View v) {
         if (v.getId() == R.id.create) {
-
             pdfObj.setWaterConclusion(waterSystem.getText().toString());
             pdfObj.setSewageConclusion(SewageSystem.getText().toString());
             pdfObj.setSealingConclusion(SealingSystem.getText().toString());
             pdfObj.setRecommendation(RecommendationsForMaking.getText().toString());
-
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
                         PackageManager.PERMISSION_DENIED) {
@@ -78,20 +77,16 @@ public class finalPdf extends AppCompatActivity {
                     createPdf(pdfObj.getPropertyDescription(), pdfObj.getCustomerName(),
                             pdfObj.getFullAddress(), pdfObj.getWorkersName(),
                             pdfObj.getCallNumber());
-
                 }
             } else {
                 createPdf(pdfObj.getPropertyDescription(), pdfObj.getCustomerName(),
                         pdfObj.getFullAddress(), pdfObj.getWorkersName(),
                         pdfObj.getCallNumber());
             }
-
         }
     }
 
-
     private void SymbolsEachPage(Canvas canvas, Paint paint, int number) {
-
         paint.setTextAlign(Paint.Align.RIGHT);
         paint.setFakeBoldText(true);
         paint.setTextSize(13);
@@ -107,12 +102,9 @@ public class finalPdf extends AppCompatActivity {
         canvas.drawText(getString(R.string.mail), 10, PAGE_HEIGHT - 20, paint);
         paint.setTextAlign(Paint.Align.CENTER);
         canvas.drawText(String.valueOf(number), PAGE_WIDTH / 2, 30, paint);
-
-
     }
 
     private void createPdf(String propertyDescription, String customerName, String fullAddress, String workersName, int cn) {
-
         PdfDocument document = new PdfDocument();  // create a new document
         // crate a page description
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, 1).create();
@@ -121,17 +113,15 @@ public class finalPdf extends AppCompatActivity {
         Paint paint = new Paint();
         SymbolsEachPage(canvas, paint, 1);
         String sCertDate = changeDate;
-        if(changeDate == ""){
+        if (changeDate == "") {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             sCertDate = dateFormat.format(new Date());
 
         }
         changeDate = "";
-
         paint.setTextAlign(Paint.Align.RIGHT);
         paint.setFakeBoldText(true);
         paint.setTextSize(13);
-
         // headlines
         canvas.drawText(getString(R.string.headlineInHonorOf) + " " + customerName, PAGE_WIDTH - 50, 160, paint);
         canvas.drawText(getString(R.string.headlineNumber) + " " + cn, PAGE_WIDTH - 50, 180, paint);
@@ -183,7 +173,6 @@ public class finalPdf extends AppCompatActivity {
         canvas.translate(-150, 240);
         mTextLayout.draw(canvas);
         canvas.restore();
-
         // Table
         paint.setStrokeWidth(2);
         paint.setStyle(Paint.Style.STROKE);
@@ -199,10 +188,8 @@ public class finalPdf extends AppCompatActivity {
         canvas.drawLine(PAGE_WIDTH - 240, 400, PAGE_WIDTH - 240, 660, paint);
         canvas.drawLine(20, 440, PAGE_WIDTH - 50, 440, paint);
         paint.setTextSize(11);
-
         if (StartCreatePdfFile.evidenceArrayList.size() != 0) {
             evidence evidence = StartCreatePdfFile.evidenceArrayList.get(0);
-
             if (evidence.getRegularImageView() != null) {
                 scaledBmp = Bitmap.createScaledBitmap(evidence.getRegularImageView(), 170, 200, false);
                 canvas.drawBitmap(scaledBmp, 380, 450, paint);
@@ -216,11 +203,9 @@ public class finalPdf extends AppCompatActivity {
                 drawlongTxt(canvas, evidence.getDescription(), 3, paint, 180, 485);
             }
             StartCreatePdfFile.evidenceArrayList.remove(0);
-
         }
         document.finishPage(page);///finish page 2
         int ppnumber = 3;
-
         int numberOfPages = StartCreatePdfFile.evidenceArrayList.size() / 3;
         for (int i = 0; i <= numberOfPages; i++) {
             paint.setStrokeWidth(2);
@@ -241,7 +226,6 @@ public class finalPdf extends AppCompatActivity {
 
                     canvas.drawLine(PAGE_WIDTH - 430, 120, PAGE_WIDTH - 430, 310, paint);
                     canvas.drawLine(PAGE_WIDTH - 240, 120, PAGE_WIDTH - 240, 310, paint);
-
                     int y = 160;
                     for (int j = 0; j < 1; j++) {
                         evidence evidence = StartCreatePdfFile.evidenceArrayList.get(0);
@@ -257,7 +241,6 @@ public class finalPdf extends AppCompatActivity {
                             drawlongTxt(canvas, evidence.getDescription(), 3, paint, 180, y);
                         }
                         StartCreatePdfFile.evidenceArrayList.remove(0);
-
                     }
                     document.finishPage(page);
                 } else if (numberOfImages == 2) {
@@ -269,14 +252,12 @@ public class finalPdf extends AppCompatActivity {
                     SymbolsEachPage(canvas, paint4, ppnumber++);
                     canvas.drawRect(20, 120, PAGE_WIDTH - 50, 500, paint);
                     paint.setStyle(Paint.Style.FILL);
-
                     canvas.drawLine(PAGE_WIDTH - 430, 120, PAGE_WIDTH - 430, 500, paint);
                     canvas.drawLine(PAGE_WIDTH - 240, 120, PAGE_WIDTH - 240, 500, paint);
                     canvas.drawLine(20, 310, PAGE_WIDTH - 50, 310, paint);///1 width line
                     int y = 160;
                     for (int j = 0; j < 2; j++) {
                         evidence evidence = StartCreatePdfFile.evidenceArrayList.get(0);
-
                         if (evidence.getThermalImageView() != null) {
                             scaledBmp = Bitmap.createScaledBitmap(evidence.getThermalImageView(), 170, 180, false);
                             canvas.drawBitmap(scaledBmp, 190, y - 35, paint);
@@ -290,7 +271,6 @@ public class finalPdf extends AppCompatActivity {
                         }
                         y += 190;
                         StartCreatePdfFile.evidenceArrayList.remove(0);
-
                     }
                     document.finishPage(page);
                 }
@@ -303,7 +283,6 @@ public class finalPdf extends AppCompatActivity {
                 SymbolsEachPage(canvas, paint4, ppnumber++);
                 canvas.drawRect(20, 120, PAGE_WIDTH - 50, 690, paint);
                 paint.setStyle(Paint.Style.FILL);
-
                 canvas.drawLine(PAGE_WIDTH - 430, 120, PAGE_WIDTH - 430, 690, paint);
                 canvas.drawLine(PAGE_WIDTH - 240, 120, PAGE_WIDTH - 240, 690, paint);
                 canvas.drawLine(20, 310, PAGE_WIDTH - 50, 310, paint);///1 width line
@@ -311,7 +290,6 @@ public class finalPdf extends AppCompatActivity {
                 int y = 160;
                 for (int j = 0; j < 3; j++) {
                     evidence evidence = StartCreatePdfFile.evidenceArrayList.get(0);
-
                     if (evidence.getThermalImageView() != null) {
                         scaledBmp = Bitmap.createScaledBitmap(evidence.getThermalImageView(), 170, 180, false);
                         canvas.drawBitmap(scaledBmp, 190, y - 35, paint);
@@ -329,10 +307,7 @@ public class finalPdf extends AppCompatActivity {
                 }
                 document.finishPage(page);
             }
-
-
         }
-
         // Create final Page
         pageInfo = new PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, ppnumber).create();
         page = document.startPage(pageInfo);
@@ -340,7 +315,6 @@ public class finalPdf extends AppCompatActivity {
         canvas = page.getCanvas();
         paint3.setFakeBoldText(true);
         SymbolsEachPage(canvas, paint3, ppnumber++);
-
         // headlines
         paint3.setTextAlign(Paint.Align.CENTER);
         paint3.setTextSize(18);
@@ -367,7 +341,6 @@ public class finalPdf extends AppCompatActivity {
         canvas.drawText(getString(R.string.sewageSystem) + ":", PAGE_WIDTH - 50, y, paint3);
         paint3.setUnderlineText(false);
         y = drawlongTxt(canvas, pdfObj.getSewageConclusion(), 12, paint3, PAGE_WIDTH - 150, y);
-
 
         y = y + 80;
         paint3.setTextAlign(Paint.Align.CENTER);
@@ -399,13 +372,12 @@ public class finalPdf extends AppCompatActivity {
             document.writeTo(new FileOutputStream(filePath));
             Toast.makeText(this, getString(R.string.donePdf), Toast.LENGTH_LONG).show();
             finishFlag = true;
-            finishingPdf=true;
+            finishingPdf = true;
             finish();
         } catch (IOException e) {
             Log.e("main", "error " + e.toString());
             Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
         }
-        // close the document
         document.close();
     }
 
@@ -443,28 +415,9 @@ public class finalPdf extends AppCompatActivity {
         return y;
     }
 
-    private String returningStingWithBackSlashN(String input, int space) {
-
-        String DiscripWithN = " ";
-        if (input != null) {
-            int count = 0;
-            String[] discription = input.split(" ");
-            for (String disc : discription) {
-                if (count == space) {
-                    DiscripWithN += disc + "\n";
-                    count = 0;
-                } else {
-                    DiscripWithN += disc + " ";
-                    count++;
-                }
-            }
-        }
-        return DiscripWithN;
-    }
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case STORAGE_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -478,16 +431,15 @@ public class finalPdf extends AppCompatActivity {
         }
     }
 
-    protected void  onDestroy() {
-        super. onDestroy();
-        if(finishingPdf){
-            watersS ="";
-            SewageS ="";
-            SealingS ="";
-            Recommendations ="";
-            finishingPdf=false;
-        }
-        else {
+    protected void onDestroy() {
+        super.onDestroy();
+        if (finishingPdf) {
+            watersS = "";
+            SewageS = "";
+            SealingS = "";
+            Recommendations = "";
+            finishingPdf = false;
+        } else {
             watersS = waterSystem.getText().toString();
             SewageS = SewageSystem.getText().toString();
             SealingS = SealingSystem.getText().toString();
@@ -495,5 +447,3 @@ public class finalPdf extends AppCompatActivity {
         }
     }
 }
-
-

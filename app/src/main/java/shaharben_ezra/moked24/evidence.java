@@ -26,18 +26,9 @@ public class evidence {
         return regularImageView;
     }
 
-    public void setRegularImageView(Bitmap ImageView) {
-        this.regularImageView = ImageView;
-    }
-
     public Bitmap getThermalImageView()
     {
         return thermalImageView;
-    }
-
-    public void setThermalImageView (Bitmap ImageView) {
-
-        this.thermalImageView = ImageView;
     }
 
 }

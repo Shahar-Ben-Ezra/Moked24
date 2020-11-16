@@ -2,8 +2,8 @@ package shaharben_ezra.moked24;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -39,15 +39,11 @@ public class StartCreatePdfFile extends AppCompatActivity  {
     public void PressActivity(View v) {
 
         switch (v.getId()) {
-
             case R.id.continueRecommendation: {
                 Intent target = new Intent(StartCreatePdfFile.this, finalPdf.class);
-
                 Random random = new Random();
-
                 // generate a random integer from 0 to 8999, then add 1000
                 int callNumber = random.nextInt(8999) + 1000;
-
                 pdfObj pdfObj=new pdfObj(propertyDescriptionText.getText().toString(), costumerName.getText().toString(),
                         address.getText().toString(), workers.getText().toString(),
                         callNumber);
@@ -73,6 +69,5 @@ public class StartCreatePdfFile extends AppCompatActivity  {
         }
         else
         textViewNumberOfImages.setText("מספר התמונות שהוספת עד כה :"+evidenceArrayList.size());
-
     }
 }
