@@ -32,6 +32,7 @@ import java.util.Date;
 import static shaharben_ezra.moked24.DatePickerFragment.changeDate;
 
 public class finalPdf extends AppCompatActivity {
+    public static String emailName = "";
     private static pdfObj pdfObj;
     private static final int STORAGE_CODE = 1000;
     private static final int PAGE_WIDTH = 612;
@@ -52,6 +53,7 @@ public class finalPdf extends AppCompatActivity {
         setContentView(R.layout.activity_final_pdf);
         Intent intent = getIntent();
         pdfObj = (pdfObj) intent.getSerializableExtra("PDF");
+        emailName =pdfObj.getEmail();
         waterSystem = (EditText) findViewById(R.id.waterSystem);
         SealingSystem = (EditText) findViewById(R.id.SealingSystem);
         SewageSystem = (EditText) findViewById(R.id.SewageSystem);

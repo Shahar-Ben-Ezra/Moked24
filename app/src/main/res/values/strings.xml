@@ -6,6 +6,7 @@
     <string name="propertyDescription">תיאור הנכס</string>
     <string name="costumerName">שם לקוח</string>
     <string name="address">כתובת:</string>
+    <string name="email">מייל:</string>
     <string name="workersName">שמות הסורקים:</string>
     <string name="callNumber">מס קריאה</string>
     <string name="addPhoto">הוסף תמונה</string>

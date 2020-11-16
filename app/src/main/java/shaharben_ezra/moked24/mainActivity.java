@@ -115,7 +115,7 @@ public class mainActivity extends AppCompatActivity {
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
             emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]
-                    {"me@gmail.com"});
+                    {finalPdf.emailName});
             emailIntent.putExtra(Intent.EXTRA_SUBJECT,
                     "המוקד לאיתור נזילות בישראל");
             emailIntent.putExtra(Intent.EXTRA_TEXT,

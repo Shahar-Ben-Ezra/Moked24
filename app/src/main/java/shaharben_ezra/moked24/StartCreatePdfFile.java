@@ -13,10 +13,9 @@ import java.util.Random;
 
 public class StartCreatePdfFile extends AppCompatActivity  {
 
-    private EditText propertyDescriptionText, costumerName, address, workers;
+    private EditText propertyDescriptionText, costumerName, address, workers,email;
     private TextView textViewNumberOfImages;
     public static ArrayList<evidence> evidenceArrayList = new ArrayList<>();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +24,8 @@ public class StartCreatePdfFile extends AppCompatActivity  {
         setTitle(R.string.hmercazName);
         propertyDescriptionText = (EditText) findViewById(R.id.propertyDescription);
         costumerName = (EditText) findViewById(R.id.costumerName);
+        email = (EditText) findViewById(R.id.email);
+
         address = (EditText) findViewById(R.id.address);
         workers = (EditText) findViewById(R.id.workers);
         textViewNumberOfImages=(TextView) findViewById(R.id.textViewNumberOfImages);
@@ -46,7 +47,7 @@ public class StartCreatePdfFile extends AppCompatActivity  {
                 int callNumber = random.nextInt(8999) + 1000;
                 pdfObj pdfObj=new pdfObj(propertyDescriptionText.getText().toString(), costumerName.getText().toString(),
                         address.getText().toString(), workers.getText().toString(),
-                        callNumber);
+                        callNumber,email.getText().toString());
                 target.putExtra("PDF",  pdfObj);
                 startActivity(target);
                 break;
@@ -57,7 +58,6 @@ public class StartCreatePdfFile extends AppCompatActivity  {
                 startActivity(target);
                 break;
             }
-
         }
     }
 

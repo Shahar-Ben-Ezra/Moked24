@@ -9,6 +9,7 @@ public class pdfObj implements Serializable {
     private String customerName;
     private String fullAddress;
     private String workersName;
+    private String email;
     private int callNumber;
     private String recommendation;
     private String waterConclusion;
@@ -16,17 +17,17 @@ public class pdfObj implements Serializable {
     private String sewageConclusion;
 
     public pdfObj(String propertyDescription, String customerName, String fullAddress,
-                  String workersName, int callNumber) {
+                  String workersName, int callNumber, String email) {
         this.propertyDescription = propertyDescription;
         this.customerName = customerName;
         this.fullAddress = fullAddress;
         this.workersName = workersName;
         this.callNumber = callNumber;
+        this.email = email;
         this.waterConclusion = "";
         this.sewageConclusion = "";
         this.sealingConclusion = "";
         this.recommendation = "";
-
     }
 
     public String getPropertyDescription() {
@@ -35,6 +36,10 @@ public class pdfObj implements Serializable {
 
     public String getCustomerName() {
         return customerName;
+    }
+
+    public String getEmail() {
+        return  email.isEmpty() ? "@gmail.com" : email;
     }
 
     public String getFullAddress() {
