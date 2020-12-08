@@ -124,7 +124,6 @@ public class mainActivity extends AppCompatActivity {
                             "לאחר בדיקה שבוצעה מצורפת חוות דעת מקצועית.\n" +
                             "נשמח לעמוד לשירותכם בכל עת ,\n" +
                             "בברכה המוקד לאיתור נזילות בישראל. ");
-            emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(finalPdf.targetPdf));
             Intent i = Intent.createChooser(emailIntent, "Send mail...");
             startActivity(i);
             progressDialog.dismiss();
