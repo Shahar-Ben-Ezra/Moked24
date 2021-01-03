@@ -1,5 +1,6 @@
 package shaharben_ezra.moked24;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,8 +10,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+
 import androidx.core.content.FileProvider;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,7 +25,13 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,6 +47,9 @@ public class addImage extends AppCompatActivity {
     Spinner spinnerInputType;
     private static String itemSelected = "";
     private static String currentPhotoPath = "";
+    private boolean flagChange = false;
+    private int positionSelected = 0;
+    private evidence evidence = new evidence(null, null, "", "", "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +65,22 @@ public class addImage extends AppCompatActivity {
         iv = findViewById(R.id.iv);
         iv1 = findViewById(R.id.iv1);
         spinnerInputType = findViewById(R.id.spinnerInputType);
+        Intent intent = getIntent();
+        if (intent.getSerializableExtra("position") != null) {
+            try {
+                positionSelected = (int) intent.getSerializableExtra("position");
+                evidence = StartCreatePdfFile.evidenceArrayList.get(positionSelected - 1);
+                flagChange = true;
+                iv1.setImageBitmap(evidence.getThermalImageView());
+                imageBitmapthr = evidence.getThermalImageView();
+                iv.setImageBitmap(evidence.getRegularImageView());
+                imageBitmap = evidence.getRegularImageView();
+                etDISC.setText(evidence.getDescription());
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         String[] arrayItems = {"ללא פירוט מובנה",
                 "זוהתה חדירת מים המגיעה מכיוון.",
                 "זוהה איטום לקוי.",
@@ -74,6 +102,7 @@ public class addImage extends AppCompatActivity {
                 //METHOD 1: Get text from selected item's position & set it to TextView
                 itemSelected = parent.getItemAtPosition(position).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -121,15 +150,23 @@ public class addImage extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {/// save
+
                 String txt = etDISC.getText().toString();
                 if (!itemSelected.equals("ללא פירוט מובנה")) {
                     txt = itemSelected + " " + txt;
                 }
-                evidence evidence = new evidence(imageBitmap, imageBitmapthr, txt);
+                evidence.setRegularImageView(imageBitmap);
+                evidence.setThermalImageView(imageBitmapthr);
+                evidence.setDescription(txt);
                 imageBitmap = null;
                 imageBitmapthr = null;
-                StartCreatePdfFile.evidenceArrayList.add(evidence);
-                Toast.makeText(addImage.this, getString(R.string.you_add), Toast.LENGTH_SHORT).show();
+                if (positionSelected > 0) {
+                    Toast.makeText(addImage.this, getString(R.string.edited), Toast.LENGTH_SHORT).show();
+                } else {
+                    StartCreatePdfFile.evidenceArrayList.add(evidence);
+                    Toast.makeText(addImage.this, getString(R.string.you_add), Toast.LENGTH_SHORT).show();
+                }
+                positionSelected = 0;
                 addImage.this.finish();
             }
         });
@@ -149,10 +186,9 @@ public class addImage extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             if (whichImage.equals("thermal")) {
                 imageBitmapthr = BitmapFactory.decodeFile(currentPhotoPath);// all the picture is Bitmap
-
-//                iv1.setImageBitmap(imageBitmapthr);
                 try {
                     Bitmap bitmap = fixingRotaitonx(currentPhotoPath, imageBitmapthr);
+                    evidence.setThermalImageViewPath(currentPhotoPath);
                     iv1.setImageBitmap(bitmap);
                     imageBitmapthr = bitmap;
                 } catch (IOException e) {
@@ -164,6 +200,7 @@ public class addImage extends AppCompatActivity {
                     Bitmap bitmap = fixingRotaitonx(currentPhotoPath, imageBitmap);
                     iv.setImageBitmap(bitmap);
                     imageBitmap = bitmap;
+                    evidence.setRegularImageViewPath(currentPhotoPath);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -175,12 +212,25 @@ public class addImage extends AppCompatActivity {
                 iv1.setDrawingCacheEnabled(true);
                 iv1.buildDrawingCache();
                 imageBitmapthr = Bitmap.createBitmap(iv1.getDrawingCache());
+                saveBitmapToImagesFolder(imageBitmapthr);
+                evidence.setThermalImageViewPath(currentPhotoPath);
             } else {
                 iv.setImageURI(ImageUri);
                 iv.setDrawingCacheEnabled(true);
                 iv.buildDrawingCache();
                 imageBitmap = Bitmap.createBitmap(iv.getDrawingCache());
+                saveBitmapToImagesFolder(imageBitmap);
+                evidence.setRegularImageViewPath(currentPhotoPath);
+
             }
+        }
+    }
+
+    private void saveBitmapToImagesFolder(Bitmap PICK_IMAGE) {
+        try (FileOutputStream out = new FileOutputStream(createImageFile())) {
+            PICK_IMAGE.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -217,7 +267,8 @@ public class addImage extends AppCompatActivity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "jpg_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = new File(Environment.getExternalStorageDirectory() + "/MokedApp", "ImagesMokedApp");
+        storageDir.mkdirs();
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -237,6 +288,7 @@ public class addImage extends AppCompatActivity {
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
+                ex.getStackTrace();
                 // Error occurred while creating the File
             }
             // Continue only if the File was successfully created

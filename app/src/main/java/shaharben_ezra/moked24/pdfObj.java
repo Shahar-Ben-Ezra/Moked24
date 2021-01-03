@@ -30,6 +30,20 @@ public class pdfObj implements Serializable {
         this.recommendation = "";
     }
 
+    public pdfObj(String propertyDescription, String customerName, String fullAddress,
+                  String workersName, int callNumber, String email, String waterConclusion, String sewageConclusion, String sealingConclusion, String recommendation) {
+        this.propertyDescription = propertyDescription;
+        this.customerName = customerName;
+        this.fullAddress = fullAddress;
+        this.workersName = workersName;
+        this.callNumber = callNumber;
+        this.email = email;
+        this.waterConclusion = waterConclusion;
+        this.sewageConclusion = sewageConclusion;
+        this.sealingConclusion = sealingConclusion;
+        this.recommendation = recommendation;
+    }
+
     public String getPropertyDescription() {
         return propertyDescription;
     }
@@ -39,7 +53,7 @@ public class pdfObj implements Serializable {
     }
 
     public String getEmail() {
-        return  email.isEmpty() ? "@gmail.com" : email;
+        return email.isEmpty() ? "@gmail.com" : email;
     }
 
     public String getFullAddress() {
@@ -85,6 +99,5 @@ public class pdfObj implements Serializable {
     public String getRecommendation() {
         return recommendation;
     }
-
 
 }

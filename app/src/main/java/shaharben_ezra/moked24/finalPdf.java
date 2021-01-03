@@ -18,14 +18,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -46,6 +51,8 @@ public class finalPdf extends AppCompatActivity {
     private static String SealingS = "";
     private static String Recommendations = "";
     private static boolean finishingPdf = false;
+    public static JSONArray jsonArray = new JSONArray();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,15 +60,15 @@ public class finalPdf extends AppCompatActivity {
         setContentView(R.layout.activity_final_pdf);
         Intent intent = getIntent();
         pdfObj = (pdfObj) intent.getSerializableExtra("PDF");
-        emailName =pdfObj.getEmail();
+        emailName = pdfObj.getEmail();
         waterSystem = (EditText) findViewById(R.id.waterSystem);
         SealingSystem = (EditText) findViewById(R.id.SealingSystem);
         SewageSystem = (EditText) findViewById(R.id.SewageSystem);
         RecommendationsForMaking = (EditText) findViewById(R.id.RecommendationsForMaking);
-        waterSystem.setText(watersS);
-        SealingSystem.setText(SewageS);
-        SewageSystem.setText(SealingS);
-        RecommendationsForMaking.setText(Recommendations);
+        waterSystem.setText(pdfObj.getWaterConclusion().isEmpty() ? watersS : pdfObj.getWaterConclusion());
+        SealingSystem.setText(pdfObj.getSealingConclusion().isEmpty() ? SealingS : pdfObj.getSealingConclusion());
+        SewageSystem.setText(pdfObj.getSewageConclusion().isEmpty() ? SewageS : pdfObj.getSewageConclusion());
+        RecommendationsForMaking.setText(pdfObj.getRecommendation().isEmpty() ? Recommendations : pdfObj.getRecommendation());
     }
 
     public void PressButtonActivity(View v) {
@@ -70,6 +77,7 @@ public class finalPdf extends AppCompatActivity {
             pdfObj.setSewageConclusion(SewageSystem.getText().toString());
             pdfObj.setSealingConclusion(SealingSystem.getText().toString());
             pdfObj.setRecommendation(RecommendationsForMaking.getText().toString());
+
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
                 if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
                         PackageManager.PERMISSION_DENIED) {
@@ -190,6 +198,7 @@ public class finalPdf extends AppCompatActivity {
         canvas.drawLine(PAGE_WIDTH - 240, 400, PAGE_WIDTH - 240, 660, paint);
         canvas.drawLine(20, 440, PAGE_WIDTH - 50, 440, paint);
         paint.setTextSize(11);
+        createJson(sCertDate, customerName);
         if (StartCreatePdfFile.evidenceArrayList.size() != 0) {
             evidence evidence = StartCreatePdfFile.evidenceArrayList.get(0);
             if (evidence.getRegularImageView() != null) {
@@ -363,7 +372,7 @@ public class finalPdf extends AppCompatActivity {
         document.finishPage(page);
         // write the document content
 
-        String directory_path = Environment.getExternalStorageDirectory() + "/mypdf/";
+        String directory_path = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/";
         File file = new File(directory_path);
         if (!file.exists()) {
             file.mkdirs();
@@ -376,13 +385,57 @@ public class finalPdf extends AppCompatActivity {
             finishFlag = true;
             finishingPdf = true;
             finish();
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.e("main", "error " + e.toString());
             Toast.makeText(this, "Something wrong: " + e.toString(), Toast.LENGTH_LONG).show();
         }
         document.close();
     }
 
+    private void createJson(String sCertDate, String customerName) {
+        try {
+            JSONObject objToSave = new JSONObject();
+            objToSave.put("callNumber", pdfObj.getCallNumber());
+            objToSave.put("customerName", pdfObj.getCustomerName());
+            objToSave.put("email", pdfObj.getEmail());
+            objToSave.put("fullAddress", pdfObj.getFullAddress());
+            objToSave.put("propertyDescription", pdfObj.getPropertyDescription());
+            objToSave.put("sealingConclusion", pdfObj.getSealingConclusion());
+            objToSave.put("recommendation", pdfObj.getRecommendation());
+            objToSave.put("sewageConclusion", pdfObj.getSewageConclusion());
+            objToSave.put("waterConclusion", pdfObj.getWaterConclusion());
+            objToSave.put("workersName", pdfObj.getWorkersName());
+            objToSave.put("date", sCertDate);
+            JSONObject finalJson = new JSONObject();
+            finalJson.put("summary", objToSave);
+            for (int i = 0; i < StartCreatePdfFile.evidenceArrayList.size(); i++) {
+                evidence ev = StartCreatePdfFile.evidenceArrayList.get(i);
+                JSONObject obj = new JSONObject();
+                try {
+                    obj.put("imageBitmap", ev.getRegularImageViewPath());
+                    obj.put("imageBitmapthr", ev.getThermalImageViewPath());
+                    obj.put("imageExp", ev.getDescription());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                finalPdf.jsonArray.put(obj);
+            }
+            finalJson.put("evidences", jsonArray);
+            File storageDir = new File(Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files");
+            storageDir.mkdirs();
+
+            String filename = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/" + customerName + ".json";
+            FileOutputStream file1 = new FileOutputStream(filename);
+            ObjectOutputStream out = new ObjectOutputStream(file1);
+            out.writeObject(finalJson.toString());
+            out.close();
+            file1.close();
+            jsonArray = new JSONArray();
+        } catch (Exception ex) {
+            System.out.println("IOException is caught");
+        }
+    }
 
     private int drawlongTxt(Canvas canvas, String input, int space, Paint paint, int x, int y) {
 
@@ -390,15 +443,15 @@ public class finalPdf extends AppCompatActivity {
         if (input != null) {
             int count = 0;
             int countlength = 0;
-            String[] discription = input.split(" ");
-            for (int i = 0; i < discription.length; i++) {
-                String disc = discription[i];
-                if (count == space || disc.contains("\n") || (space == 3 && i + 1 < discription.length &&
-                        countlength + disc.length() + discription[i + 1].length() > 23)
-                        || (space == 15 && i + 1 < discription.length &&
-                        countlength + disc.length() + discription[i + 1].length() > 72) || (
-                        space == 12 && i + 1 < discription.length &&
-                                countlength + disc.length() + discription[i + 1].length() > 63)) {
+            String[] description = input.split(" ");
+            for (int i = 0; i < description.length; i++) {
+                String disc = description[i];
+                if (count == space || disc.contains("\n") || (space == 3 && i + 1 < description.length &&
+                        countlength + disc.length() + description[i + 1].length() > 23)
+                        || (space == 15 && i + 1 < description.length &&
+                        countlength + disc.length() + description[i + 1].length() > 72) || (
+                        space == 12 && i + 1 < description.length &&
+                                countlength + disc.length() + description[i + 1].length() > 63)) {
                     canvas.drawText(DiscripWithN + disc, x, y, paint);
                     y += 15;
                     count = 0;
@@ -412,7 +465,6 @@ public class finalPdf extends AppCompatActivity {
             }
             canvas.drawText(DiscripWithN, x, y, paint);
             y += 15;
-
         }
         return y;
     }

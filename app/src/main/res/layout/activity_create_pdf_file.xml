@@ -127,6 +127,25 @@
         android:layout_below="@id/textView115"
         android:layout_marginVertical="20dp"
         android:text="@string/addPhoto"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoMirrored="true"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:paddingTop="10dp"
+            android:id="@+id/spinnerInput"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewEnd" />
+        <TextView
+            android:id="@+id/textView221"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ערוך ממצא:"
+            android:textSize="20sp" />
+    </LinearLayout>
     <TextView
         android:id="@+id/textViewNumberOfImages"
         android:layout_width="match_parent"

@@ -15,6 +15,7 @@
     <string name="showPdf">הראה קובץ נוכחי</string>
     <string name="hmercazName">המוקד לאיתור נזילות</string>
     <string name="firstCreate">קודם צור קובץ Pdf</string>
+    <string name="didntFound">לא נמצא קובץ בשם זה</string>
     <string name="image">תמונה</string>
     <string name="description">  פירוט:</string>
     <string name="write_a_description">הכנס פירוט</string>
@@ -22,6 +23,7 @@
     <string name="cancel">ביטול</string>
     <string name="need">לא מילאת את כל הפרטים</string>
     <string name="you_add">הוספת תמונה לקובץ</string>
+    <string name="edited">נערך</string>
     <string name="data">data</string>
     <string name="digital">דיגיטלית</string>
     <string name="evidences">ממצאים</string>
@@ -67,6 +69,8 @@
     </string>
     <string name="openExistedFiles">פתח קבצים קיימים</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="editFile">ערוך קובץ קיים</string>
+    <string name="fileName">שם קובץ:</string>
     <string-array name="spinner">
         <item>בחר פירוט מובנה</item>
     </string-array>

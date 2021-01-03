@@ -1,13 +1,17 @@
 package shaharben_ezra.moked24;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,12 +30,19 @@ public class mainActivity extends AppCompatActivity {
     ActionBar actionbar;
     TextView textview;
     ProgressDialog progressDialog;
+    private static final int STORAGE_CODE = 1000;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle(R.string.hmercazName);
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
+                PackageManager.PERMISSION_DENIED) {
+            String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            requestPermissions(permission, STORAGE_CODE);
+        }
     }
 
     public void PressBtbActivity(View v) {
@@ -39,6 +50,11 @@ public class mainActivity extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.createPdf: {
                 Intent target = new Intent(mainActivity.this, StartCreatePdfFile.class);
+                startActivity(target);
+                break;
+            }
+            case R.id.editFile: {
+                Intent target = new Intent(mainActivity.this, editPdf.class);
                 startActivity(target);
                 break;
             }
@@ -61,7 +77,7 @@ public class mainActivity extends AppCompatActivity {
                 break;
             }
             case R.id.openFile: {
-                Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/mypdf/");
+                Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/MokedApp/PDF_Files/");
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setDataAndType(selectedUri, "*/*");
                 startActivity(intent);
