@@ -1,6 +1,5 @@
 package shaharben_ezra.moked24;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Environment;
-import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,7 +23,6 @@ import static java.lang.Integer.parseInt;
 
 public class editPdf extends AppCompatActivity {
 
-    ProgressDialog progressDialog;
     private EditText pdfFileName;
 
     @Override
@@ -37,11 +34,6 @@ public class editPdf extends AppCompatActivity {
     }
 
     public void getJsonFile(View v) {
-        progressDialog = new ProgressDialog(editPdf.this);
-        progressDialog.setMessage("Please Wait");
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
         String fileName = pdfFileName.getText().toString();
         if (fileName.isEmpty()) {
             Toast.makeText(this, getString(R.string.didntFound), Toast.LENGTH_SHORT).show();
@@ -71,13 +63,11 @@ public class editPdf extends AppCompatActivity {
 
                 DatePickerFragment.changeDate = summaryObj.getString("date");
                 target.putExtra("PDF", pdfObj);
-                progressDialog.dismiss();
                 startActivity(target);
                 finish();
             } catch (Exception e) {
                 Toast.makeText(this, getString(R.string.didntFound), Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
-                progressDialog.dismiss();
 
             }
         }

@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -211,7 +210,7 @@ public class finalPdf extends AppCompatActivity {
             }
             paint.setTextSize(13);
             if (!evidence.getDescription().isEmpty()) {
-                drawlongTxt(canvas, evidence.getDescription(), 3, paint, 180, 485);
+                drawLongTxt(canvas, evidence.getDescription(), 3, paint, 180, 485);
             }
             StartCreatePdfFile.evidenceArrayList.remove(0);
         }
@@ -249,7 +248,7 @@ public class finalPdf extends AppCompatActivity {
                             canvas.drawBitmap(scaledBmp, 380, y - 35, paint);
                         }
                         if (!evidence.getDescription().isEmpty()) {
-                            drawlongTxt(canvas, evidence.getDescription(), 3, paint, 180, y);
+                            drawLongTxt(canvas, evidence.getDescription(), 3, paint, 180, y);
                         }
                         StartCreatePdfFile.evidenceArrayList.remove(0);
                     }
@@ -278,7 +277,7 @@ public class finalPdf extends AppCompatActivity {
                             canvas.drawBitmap(scaledBmp, 380, y - 35, paint);
                         }
                         if (!evidence.getDescription().isEmpty()) {
-                            drawlongTxt(canvas, evidence.getDescription(), 3, paint, 180, y);
+                            drawLongTxt(canvas, evidence.getDescription(), 3, paint, 180, y);
                         }
                         y += 190;
                         StartCreatePdfFile.evidenceArrayList.remove(0);
@@ -310,7 +309,7 @@ public class finalPdf extends AppCompatActivity {
                         canvas.drawBitmap(scaledBmp, 380, y - 35, paint);
                     }
                     if (!evidence.getDescription().isEmpty()) {
-                        drawlongTxt(canvas, evidence.getDescription(), 3, paint, 180, y);
+                        drawLongTxt(canvas, evidence.getDescription(), 3, paint, 180, y);
                     }
                     y += 190;
                     StartCreatePdfFile.evidenceArrayList.remove(0);
@@ -339,19 +338,19 @@ public class finalPdf extends AppCompatActivity {
         canvas.drawText(getString(R.string.waterSystem) + ":", PAGE_WIDTH - 50, 190, paint3);
         int y = 190;
         paint3.setUnderlineText(false);
-        y = drawlongTxt(canvas, pdfObj.getWaterConclusion(), 12, paint3, PAGE_WIDTH - 150, y);
+        y = drawLongTxt(canvas, pdfObj.getWaterConclusion(), 12, paint3, PAGE_WIDTH - 150, y);
 
         y = y + 20;
         paint3.setUnderlineText(true);
         canvas.drawText(getString(R.string.sealingSystem) + ":", PAGE_WIDTH - 50, y, paint3);
         paint3.setUnderlineText(false);
-        y = drawlongTxt(canvas, pdfObj.getSealingConclusion(), 12, paint3, PAGE_WIDTH - 150, y);
+        y = drawLongTxt(canvas, pdfObj.getSealingConclusion(), 12, paint3, PAGE_WIDTH - 150, y);
 
         y = y + 20;
         paint3.setUnderlineText(true);
         canvas.drawText(getString(R.string.sewageSystem) + ":", PAGE_WIDTH - 50, y, paint3);
         paint3.setUnderlineText(false);
-        y = drawlongTxt(canvas, pdfObj.getSewageConclusion(), 12, paint3, PAGE_WIDTH - 150, y);
+        y = drawLongTxt(canvas, pdfObj.getSewageConclusion(), 12, paint3, PAGE_WIDTH - 150, y);
 
         y = y + 80;
         paint3.setTextAlign(Paint.Align.CENTER);
@@ -362,7 +361,7 @@ public class finalPdf extends AppCompatActivity {
         paint3.setUnderlineText(false);
         paint3.setTextSize(13);
         y += 20;
-        y = drawlongTxt(canvas, pdfObj.getRecommendation(), 15, paint3, PAGE_WIDTH - 75, y);
+        y = drawLongTxt(canvas, pdfObj.getRecommendation(), 15, paint3, PAGE_WIDTH - 75, y);
 
         paint3.setTextSize(18);
         canvas.drawText("ההמלצה שעבודות יבוצעו על ידי בעל מקצוע מוסמך בנוסף,מומלץ שבעל", PAGE_WIDTH - 50, y + 90, paint3);
@@ -437,7 +436,7 @@ public class finalPdf extends AppCompatActivity {
         }
     }
 
-    private int drawlongTxt(Canvas canvas, String input, int space, Paint paint, int x, int y) {
+    private int drawLongTxt(Canvas canvas, String input, int space, Paint paint, int x, int y) {
 
         String DiscripWithN = "";
         if (input != null) {

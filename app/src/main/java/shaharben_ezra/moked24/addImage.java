@@ -1,6 +1,5 @@
 package shaharben_ezra.moked24;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,7 +13,6 @@ import android.provider.MediaStore;
 import androidx.core.content.FileProvider;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Base64;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,11 +23,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -56,10 +49,10 @@ public class addImage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_image);
         etDISC = findViewById(R.id.etDISC);
-        ImageButton BtnPickdig = findViewById(R.id.BtnPickdig);
+        ImageButton BtnPicking = findViewById(R.id.BtnPickdig);
         Button btnSave = findViewById(R.id.btnSave);
-        Button btn_cancle = findViewById(R.id.btn_cancle);
-        ImageButton imageGalleryig = findViewById(R.id.imageGallerydig);
+        Button ban_cancel = findViewById(R.id.btn_cancle);
+        ImageButton imageGallery = findViewById(R.id.imageGallerydig);
         ImageButton BtnPicThr = findViewById(R.id.BtnPick);
         ImageButton imageGalleryThr = findViewById(R.id.imageGallery);
         iv = findViewById(R.id.iv);
@@ -109,14 +102,14 @@ public class addImage extends AppCompatActivity {
             }
         });
 
-        BtnPickdig.setOnClickListener(new View.OnClickListener() {
+        BtnPicking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {/// take a picture
                 whichImage = "digital";
                 dispatchTakePictureIntent();
             }
         });
-        imageGalleryig.setOnClickListener(new View.OnClickListener() {
+        imageGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {/// take a  picture from gallery
                 whichImage = "digital";
@@ -141,7 +134,7 @@ public class addImage extends AppCompatActivity {
             }
         });
 
-        btn_cancle.setOnClickListener(new View.OnClickListener() {
+        ban_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

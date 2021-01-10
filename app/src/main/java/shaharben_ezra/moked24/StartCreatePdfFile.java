@@ -102,7 +102,7 @@ public class StartCreatePdfFile extends AppCompatActivity {
                 if (editPdf != null) {
                     pdfObj = new pdfObj(propertyDescriptionText.getText().toString(), costumerName.getText().toString(),
                             address.getText().toString(), workers.getText().toString(),
-                            callNumber, email.getText().toString(), editPdf.getWaterConclusion(), editPdf.getSewageConclusion(), editPdf.getSealingConclusion(), editPdf.getRecommendation());
+                            editPdf.getCallNumber(), email.getText().toString(), editPdf.getWaterConclusion(), editPdf.getSewageConclusion(), editPdf.getSealingConclusion(), editPdf.getRecommendation());
                 } else {
                     pdfObj = new pdfObj(propertyDescriptionText.getText().toString(), costumerName.getText().toString(),
                             address.getText().toString(), workers.getText().toString(),

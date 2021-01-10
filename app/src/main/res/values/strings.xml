@@ -1,7 +1,7 @@
 <resources>
 
     <string name="app_name">My ApplicationPdf</string>
-    <string name="title_activity_opdf">OPdf</string>
+    <string name="title_activity_opdf">PDF view</string>
     <string name="title_activity_create_pdf_file">createPdfFile</string>
     <string name="propertyDescription">תיאור הנכס</string>
     <string name="costumerName">שם לקוח</string>
