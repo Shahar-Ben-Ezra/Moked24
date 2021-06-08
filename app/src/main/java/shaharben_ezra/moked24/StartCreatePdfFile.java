@@ -96,8 +96,8 @@ public class StartCreatePdfFile extends AppCompatActivity {
             case R.id.continueRecommendation: {
                 Intent target = new Intent(StartCreatePdfFile.this, finalPdf.class);
                 Random random = new Random();
-                // generate a random integer from 0 to 8999, then add 1000
-                int callNumber = random.nextInt(8999) + 1000;
+                // generate a random integer from 0 to 899900, then add 100000
+                int callNumber = random.nextInt(8999000) + 1000000;
                 pdfObj pdfObj;
                 if (editPdf != null) {
                     pdfObj = new pdfObj(propertyDescriptionText.getText().toString(), costumerName.getText().toString(),

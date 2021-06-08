@@ -70,6 +70,8 @@
     <string name="openExistedFiles">פתח קבצים קיימים</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="editFile">ערוך קובץ קיים</string>
+    <string name="openFile">פתח קובץ קיים</string>
+    <string name="openFileByName">פתח קובץ קיים לפי שם</string>
     <string name="fileName">שם קובץ:</string>
     <string-array name="spinner">
         <item>בחר פירוט מובנה</item>

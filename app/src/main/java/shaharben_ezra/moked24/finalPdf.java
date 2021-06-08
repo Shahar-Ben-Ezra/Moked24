@@ -423,8 +423,7 @@ public class finalPdf extends AppCompatActivity {
             finalJson.put("evidences", jsonArray);
             File storageDir = new File(Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files");
             storageDir.mkdirs();
-
-            String filename = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/" + customerName + ".json";
+            String filename = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/" + pdfObj.getCallNumber() + ".json";
             FileOutputStream file1 = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(file1);
             out.writeObject(finalJson.toString());

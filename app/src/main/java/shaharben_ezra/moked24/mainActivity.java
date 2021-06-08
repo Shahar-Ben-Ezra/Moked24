@@ -83,6 +83,11 @@ public class mainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             }
+            case R.id.openSpecificFile: {
+                Intent target = new Intent(mainActivity.this, openSpecificPdfByName.class);
+                startActivity(target);
+                break;
+            }
         }
     }
 

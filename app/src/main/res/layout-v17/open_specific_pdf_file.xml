@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:autoMirrored="true"
+    android:layoutDirection="ltr"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autoMirrored="true"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/pdfFileName"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:minLines="1"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fileName"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView115"
+        android:layout_marginVertical="20dp"
+        android:onClick="getPdfFilePath"
+        android:text="@string/openFile" />
+
+</LinearLayout>
