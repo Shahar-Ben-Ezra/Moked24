@@ -10,6 +10,7 @@ public class pdfObj implements Serializable {
     private String fullAddress;
     private String workersName;
     private String email;
+    private String reasonCall;
     private int callNumber;
     private String recommendation;
     private String waterConclusion;
@@ -17,12 +18,13 @@ public class pdfObj implements Serializable {
     private String sewageConclusion;
 
     public pdfObj(String propertyDescription, String customerName, String fullAddress,
-                  String workersName, int callNumber, String email) {
+                  String workersName, String reasonCall, int callNumber, String email) {
         this.propertyDescription = propertyDescription;
         this.customerName = customerName;
         this.fullAddress = fullAddress;
         this.workersName = workersName;
         this.callNumber = callNumber;
+        this.reasonCall = reasonCall;
         this.email = email;
         this.waterConclusion = "";
         this.sewageConclusion = "";
@@ -31,11 +33,12 @@ public class pdfObj implements Serializable {
     }
 
     public pdfObj(String propertyDescription, String customerName, String fullAddress,
-                  String workersName, int callNumber, String email, String waterConclusion, String sewageConclusion, String sealingConclusion, String recommendation) {
+                  String workersName, String reasonCall, int callNumber, String email, String waterConclusion, String sewageConclusion, String sealingConclusion, String recommendation) {
         this.propertyDescription = propertyDescription;
         this.customerName = customerName;
         this.fullAddress = fullAddress;
         this.workersName = workersName;
+        this.reasonCall = reasonCall;
         this.callNumber = callNumber;
         this.email = email;
         this.waterConclusion = waterConclusion;
@@ -50,6 +53,10 @@ public class pdfObj implements Serializable {
 
     public String getCustomerName() {
         return customerName;
+    }
+
+    public String getReasonCall() {
+        return reasonCall;
     }
 
     public String getEmail() {
@@ -94,6 +101,10 @@ public class pdfObj implements Serializable {
 
     public void setRecommendation(String recommendation) {
         this.recommendation = recommendation;
+    }
+
+    public void setReasonCall(String reasonCall) {
+        this.reasonCall = reasonCall;
     }
 
     public String getRecommendation() {

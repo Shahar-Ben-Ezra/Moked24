@@ -12,13 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class StartCreatePdfFile extends AppCompatActivity {
 
-    private EditText propertyDescriptionText, costumerName, address, workers, email;
+    private EditText propertyDescriptionText, costumerName, address, workers, email, reasonCall;
     private TextView textViewNumberOfImages;
     public static ArrayList<evidence> evidenceArrayList = new ArrayList<>();
     private pdfObj editPdf;
@@ -34,6 +35,7 @@ public class StartCreatePdfFile extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         address = (EditText) findViewById(R.id.address);
         workers = (EditText) findViewById(R.id.workers);
+        reasonCall = (EditText) findViewById(R.id.reasonCall);
         textViewNumberOfImages = (TextView) findViewById(R.id.textViewNumberOfImages);
         textViewNumberOfImages.setText("מספר התמונות שהוספת עד כה :" + evidenceArrayList.size());
         spinnerInputType = findViewById(R.id.spinnerInput);
@@ -45,6 +47,7 @@ public class StartCreatePdfFile extends AppCompatActivity {
             email.setText(editPdf.getEmail());
             address.setText(editPdf.getFullAddress());
             workers.setText(editPdf.getWorkersName());
+            reasonCall.setText(editPdf.getReasonCall());
         }
         String[] arrayItems = {"0",
                 "1",
@@ -101,18 +104,20 @@ public class StartCreatePdfFile extends AppCompatActivity {
                 pdfObj pdfObj;
                 if (editPdf != null) {
                     pdfObj = new pdfObj(propertyDescriptionText.getText().toString(), costumerName.getText().toString(),
-                            address.getText().toString(), workers.getText().toString(),
+                            address.getText().toString(), workers.getText().toString(), reasonCall.getText().toString(),
                             editPdf.getCallNumber(), email.getText().toString(), editPdf.getWaterConclusion(), editPdf.getSewageConclusion(), editPdf.getSealingConclusion(), editPdf.getRecommendation());
                 } else {
                     pdfObj = new pdfObj(propertyDescriptionText.getText().toString(), costumerName.getText().toString(),
-                            address.getText().toString(), workers.getText().toString(),
+                            address.getText().toString(), workers.getText().toString(), reasonCall.getText().toString(),
                             callNumber, email.getText().toString());
                 }
-                target.putExtra("PDF", pdfObj);
-
-                startActivity(target);
+                if (costumerName.getText().toString().length() <= 1) {
+                    Toast.makeText(this, getString(R.string.write_a_customerName), Toast.LENGTH_SHORT).show();
+                } else {
+                    target.putExtra("PDF", pdfObj);
+                    startActivity(target);
+                }
                 break;
-
             }
             case R.id.addPhoto: {
                 Intent target = new Intent(StartCreatePdfFile.this, addImage.class);

@@ -44,12 +44,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:onClick="PressBtbActivity"
-        android:text="@string/editFile"/>
-    <Button
-        android:id="@+id/openSpecificFile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:onClick="PressBtbActivity"
-        android:text="@string/openFileByName"/>
+        android:text="@string/openEditFile"/>
+    <!--<Button-->
+        <!--android:id="@+id/openSpecificFile"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:onClick="PressBtbActivity"-->
+        <!--android:text="@string/openFileByName"/>-->
 </LinearLayout>

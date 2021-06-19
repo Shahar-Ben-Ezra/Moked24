@@ -84,12 +84,12 @@ public class finalPdf extends AppCompatActivity {
                     requestPermissions(permission, STORAGE_CODE);
                 } else {
                     createPdf(pdfObj.getPropertyDescription(), pdfObj.getCustomerName(),
-                            pdfObj.getFullAddress(), pdfObj.getWorkersName(),
+                            pdfObj.getFullAddress(), pdfObj.getWorkersName(),pdfObj.getReasonCall(),
                             pdfObj.getCallNumber());
                 }
             } else {
                 createPdf(pdfObj.getPropertyDescription(), pdfObj.getCustomerName(),
-                        pdfObj.getFullAddress(), pdfObj.getWorkersName(),
+                        pdfObj.getFullAddress(), pdfObj.getWorkersName(),pdfObj.getReasonCall(),
                         pdfObj.getCallNumber());
             }
         }
@@ -113,7 +113,7 @@ public class finalPdf extends AppCompatActivity {
         canvas.drawText(String.valueOf(number), PAGE_WIDTH / 2, 30, paint);
     }
 
-    private void createPdf(String propertyDescription, String customerName, String fullAddress, String workersName, int cn) {
+    private void createPdf(String propertyDescription, String customerName, String fullAddress, String workersName, String reason, int cn) {
         PdfDocument document = new PdfDocument();  // create a new document
         // crate a page description
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(PAGE_WIDTH, PAGE_HEIGHT, 1).create();
@@ -136,22 +136,23 @@ public class finalPdf extends AppCompatActivity {
         canvas.drawText(getString(R.string.headlineNumber) + " " + cn, PAGE_WIDTH - 50, 180, paint);
         canvas.drawText(getString(R.string.headlineAuditDate) + " " + sCertDate, PAGE_WIDTH - 50, 200, paint);
         canvas.drawText(getString(R.string.headlineWorkersName) + " " + workersName, PAGE_WIDTH - 50, 220, paint);
-        canvas.drawText(getString(R.string.headineAddress) + " " + fullAddress, PAGE_WIDTH - 50, 240, paint);
+        canvas.drawText(getString(R.string.reason) + " " + reason, PAGE_WIDTH - 50, 240, paint);
+        canvas.drawText(getString(R.string.headineAddress) + " " + fullAddress, PAGE_WIDTH - 50, 260, paint);
         paint.setTextSize(11);
         //certificate of approval
-        canvas.drawText(getString(R.string.certificateOfApproval), PAGE_WIDTH - 85, 280, paint);
-        canvas.drawText("• מצלמה תרמית מסוג x 360x280  flir ex series משמשת לצילום תרמי+דיגיטלי במקביל ", PAGE_WIDTH - 95, 300, paint);
-        canvas.drawText("• סיב אופטי לצילום פנים צנרת ולאבחון כשלים במערכות ניקוז וביוב מסוג mc 30 mincam  ", PAGE_WIDTH - 95, 320, paint);
-        canvas.drawText(" protimeter mini c  מד לחות • ", PAGE_WIDTH - 95, 340, paint);
+        canvas.drawText(getString(R.string.certificateOfApproval), PAGE_WIDTH - 85, 300, paint);
+        canvas.drawText("• מצלמה תרמית מסוג x 360x280  flir ex series משמשת לצילום תרמי+דיגיטלי במקביל ", PAGE_WIDTH - 95, 320, paint);
+        canvas.drawText("• סיב אופטי לצילום פנים צנרת ולאבחון כשלים במערכות ניקוז וביוב מסוג mc 30 mincam  ", PAGE_WIDTH - 95, 340, paint);
+        canvas.drawText(" protimeter mini c  מד לחות • ", PAGE_WIDTH - 95, 360, paint);
 
-        canvas.drawText("ניסיון מקצועי של הבודק: ", PAGE_WIDTH - 85, 410, paint);
-        canvas.drawText("8 שנות ניסיון בגילוי תרמי, מערכות מים ואינסטלציה, ומערכות איטום,  ", PAGE_WIDTH - 85, 435, paint);
-        canvas.drawText(" . TQP לאחר הכשרה של שנה באבחון נזקי מים בסידני אוסטרליה תחת חברת", PAGE_WIDTH - 85, 455, paint);
-        canvas.drawText("למעלה מ4000 נכסים שאובחנו בארץ. ", PAGE_WIDTH - 85, 475, paint);
+        canvas.drawText("ניסיון מקצועי של הבודק: ", PAGE_WIDTH - 85, 430, paint);
+        canvas.drawText("8 שנות ניסיון בגילוי תרמי, מערכות מים ואינסטלציה, ומערכות איטום,  ", PAGE_WIDTH - 85, 455, paint);
+        canvas.drawText(" . TQP לאחר הכשרה של שנה באבחון נזקי מים בסידני אוסטרליה תחת חברת", PAGE_WIDTH - 85, 475, paint);
+        canvas.drawText("למעלה מ4000 נכסים שאובחנו בארץ. ", PAGE_WIDTH - 85, 495, paint);
 
-        canvas.drawText("*אני נותן חוות דעתי זו במקום עדות בבית המשפט ואני מצהיר בזאת כי ידוע לי היטב, שלעניין ", PAGE_WIDTH - 85, 555, paint);
-        canvas.drawText("הוראות החוק הפלילי בדבר עדות שקר בשבועה בבית המשפט, דין חוות דעתי זו כשהיא חתומה ", PAGE_WIDTH - 85, 575, paint);
-        canvas.drawText("על ידי כדין עדות בשבועה שנתתי בבית המשפט.", PAGE_WIDTH - 85, 595, paint);
+        canvas.drawText("*אני נותן חוות דעתי זו במקום עדות בבית המשפט ואני מצהיר בזאת כי ידוע לי היטב, שלעניין ", PAGE_WIDTH - 85, 575, paint);
+        canvas.drawText("הוראות החוק הפלילי בדבר עדות שקר בשבועה בבית המשפט, דין חוות דעתי זו כשהיא חתומה ", PAGE_WIDTH - 85, 595, paint);
+        canvas.drawText("על ידי כדין עדות בשבועה שנתתי בבית המשפט.", PAGE_WIDTH - 85, 615, paint);
         document.finishPage(page);
 
         // Create Page 2
@@ -376,7 +377,7 @@ public class finalPdf extends AppCompatActivity {
         if (!file.exists()) {
             file.mkdirs();
         }
-        targetPdf = directory_path + customerName + ".pdf";
+        targetPdf = directory_path + customerName.trim() + ".pdf";
         File filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));
@@ -404,6 +405,7 @@ public class finalPdf extends AppCompatActivity {
             objToSave.put("sewageConclusion", pdfObj.getSewageConclusion());
             objToSave.put("waterConclusion", pdfObj.getWaterConclusion());
             objToSave.put("workersName", pdfObj.getWorkersName());
+            objToSave.put("reasonCall", pdfObj.getReasonCall());
             objToSave.put("date", sCertDate);
             JSONObject finalJson = new JSONObject();
             finalJson.put("summary", objToSave);
@@ -423,7 +425,7 @@ public class finalPdf extends AppCompatActivity {
             finalJson.put("evidences", jsonArray);
             File storageDir = new File(Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files");
             storageDir.mkdirs();
-            String filename = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/" + pdfObj.getCallNumber() + ".json";
+            String filename = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/" + pdfObj.getCustomerName() + ".json";
             FileOutputStream file1 = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(file1);
             out.writeObject(finalJson.toString());
@@ -474,7 +476,7 @@ public class finalPdf extends AppCompatActivity {
             case STORAGE_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     createPdf(pdfObj.getPropertyDescription(), pdfObj.getCustomerName(),
-                            pdfObj.getFullAddress(), pdfObj.getWorkersName(),
+                            pdfObj.getFullAddress(), pdfObj.getWorkersName(), pdfObj.getReasonCall(),
                             pdfObj.getCallNumber());
                 } else {
                     Toast.makeText(this, "permission denied...", Toast.LENGTH_SHORT).show();

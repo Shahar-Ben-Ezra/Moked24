@@ -17,8 +17,8 @@
         android:autoMirrored="true"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/pdfFileName"
+        <AutoCompleteTextView
+            android:id="@+id/pdfFileNameAutoComplete1"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:maxLines="2"
@@ -33,13 +33,30 @@
             android:textSize="20sp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/addPhoto"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textView115"
-        android:layout_marginVertical="20dp"
-        android:onClick="getJsonFile"
-        android:text="@string/editFile" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+        <Button
+            android:id="@+id/addPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="24dp"
+            android:layout_marginStart="78dp"
+            android:onClick="getJsonFile"
+            android:text="@string/editFile" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="24dp"
+            android:layout_marginStart="38dp"
+            android:onClick="getPdfFilePath"
+            android:text="@string/openFile" />
+
+    </LinearLayout>
 
 </LinearLayout>

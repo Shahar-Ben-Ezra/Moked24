@@ -54,7 +54,7 @@ public class mainActivity extends AppCompatActivity {
                 break;
             }
             case R.id.editFile: {
-                Intent target = new Intent(mainActivity.this, editPdf.class);
+                Intent target = new Intent(mainActivity.this, editOpenPdf.class);
                 startActivity(target);
                 break;
             }
@@ -83,11 +83,11 @@ public class mainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             }
-            case R.id.openSpecificFile: {
-                Intent target = new Intent(mainActivity.this, openSpecificPdfByName.class);
-                startActivity(target);
-                break;
-            }
+//            case R.id.openSpecificFile: {
+//                Intent target = new Intent(mainActivity.this, openSpecificPdfByName.class);
+//                startActivity(target);
+//                break;
+//            }
         }
     }
 

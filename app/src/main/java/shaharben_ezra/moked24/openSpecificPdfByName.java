@@ -6,19 +6,15 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
+import java.io.FilenameFilter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import static java.lang.Integer.parseInt;
 
 public class openSpecificPdfByName extends AppCompatActivity {
 
     private EditText pdfFileName;
-
+    static String fileName ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,11 +24,23 @@ public class openSpecificPdfByName extends AppCompatActivity {
     }
 
     public void getPdfFilePath(View v) {
-        String fileName = pdfFileName.getText().toString();
+        fileName = pdfFileName.getText().toString().trim();
         if (fileName.isEmpty()) {
             Toast.makeText(this, getString(R.string.didntFound), Toast.LENGTH_SHORT).show();
         } else {
             String directory_path = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/";
+            File root = new File(directory_path);
+            FilenameFilter beginswithm = new FilenameFilter()
+            {
+                public boolean accept(File directory, String currentFilename) {
+                    return currentFilename.startsWith(fileName);
+                }
+            };
+            File[] files = root.listFiles(beginswithm);
+            for (File f: files)
+            {
+                System.out.println(f);//4296116
+            }
             String filename = directory_path + fileName + ".pdf";
             try {
                 File file = new File(filename);
