@@ -377,7 +377,11 @@ public class finalPdf extends AppCompatActivity {
         if (!file.exists()) {
             file.mkdirs();
         }
-        targetPdf = directory_path + customerName.trim() + ".pdf";
+        Date dNow = new Date( );
+        SimpleDateFormat ft =
+                new SimpleDateFormat ("yyyy_MM_dd");
+
+        targetPdf = directory_path + customerName.trim() + ft.format(dNow)+ ".pdf";
         File filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));
@@ -425,7 +429,9 @@ public class finalPdf extends AppCompatActivity {
             finalJson.put("evidences", jsonArray);
             File storageDir = new File(Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files");
             storageDir.mkdirs();
-            String filename = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/" + pdfObj.getCustomerName() + ".json";
+            Date dNow = new Date( );
+            SimpleDateFormat ft = new SimpleDateFormat ("yyyy_MM_dd");
+            String filename = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/" + pdfObj.getCustomerName() +  ft.format(dNow)+ ".json";
             FileOutputStream file1 = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(file1);
             out.writeObject(finalJson.toString());

@@ -43,14 +43,24 @@ public class editOpenPdf extends AppCompatActivity {
             //TODO FINISH
             finish();
         }
-        String[] myStringArray = new String[files.length / 2];
+
+        int myStringArrayLength = files.length / 2;
+        if(files.length %2 != 0 ){ // odd
+            myStringArrayLength ++;
+        }
+        String[] myStringArray = new String[myStringArrayLength];
         Log.d("Files", "Size: " + files.length);
         int count = 0;
-        for (int i = 0; i < files.length; i++) {
-            String fileName = files[i].getName();
-            if (fileName.contains("pdf")) {
-                myStringArray[count++] = fileName.split("\\.")[0];
+        try {
+            for (int i = 0; i < files.length; i++) {
+                String fileName = files[i].getName();
+                if (fileName.contains("pdf")) {
+                    myStringArray[count++] = fileName.split("\\.")[0];
+                }
             }
+        }
+        catch (Exception e){
+            System.out.println(e);
         }
         pdfFileNameAutoComplete = (AutoCompleteTextView) findViewById(R.id.pdfFileNameAutoComplete1);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(editOpenPdf.this, android.R.layout.simple_dropdown_item_1line, myStringArray);
@@ -60,7 +70,7 @@ public class editOpenPdf extends AppCompatActivity {
 
 
     public void getPdfFilePath(View v) {
-        fileName = pdfFileNameAutoComplete.getText().toString().trim();
+        fileName = pdfFileNameAutoComplete.getText().toString();
         if (fileName.isEmpty()) {
             Toast.makeText(this, getString(R.string.didntFound), Toast.LENGTH_SHORT).show();
         } else {
@@ -94,7 +104,7 @@ public class editOpenPdf extends AppCompatActivity {
     }
 
     public void getJsonFile(View v) {
-        fileName = pdfFileNameAutoComplete.getText().toString().trim();
+        fileName = pdfFileNameAutoComplete.getText().toString();
         if (fileName.isEmpty()) {
             Toast.makeText(this, getString(R.string.didntFound), Toast.LENGTH_SHORT).show();
         } else {

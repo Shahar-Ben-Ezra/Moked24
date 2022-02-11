@@ -24,6 +24,8 @@ import android.widget.Toast;
 
 import java.io.File;
 
+import static androidx.core.content.FileProvider.getUriForFile;
+
 public class mainActivity extends AppCompatActivity {
     Button showPdf;
     EditText costumerName, address, workers, callNumber;
@@ -132,11 +134,13 @@ public class mainActivity extends AppCompatActivity {
             Intent emailIntent = new Intent(Intent.ACTION_SEND);
             emailIntent.setType("application/pdf");
             File filePDF = new File(finalPdf.targetPdf);
-            emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(filePDF));
+            emailIntent.putExtra(Intent.EXTRA_STREAM, getUriForFile(getApplicationContext(), "com.mydomain.fileprovider", filePDF));
+
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());
             emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]
                     {finalPdf.emailName});
+            emailIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             emailIntent.putExtra(Intent.EXTRA_SUBJECT,
                     "המוקד לאיתור נזילות בישראל");
             emailIntent.putExtra(Intent.EXTRA_TEXT,
