@@ -102,17 +102,20 @@ public class StartCreatePdfFile extends AppCompatActivity {
                 // generate a random integer from 0 to 899900, then add 100000
                 int callNumber = random.nextInt(8999000) + 1000000;
                 pdfObj pdfObj;
+                String customer = costumerName.getText().toString();
                 if (editPdf != null) {
-                    pdfObj = new pdfObj(propertyDescriptionText.getText().toString(), costumerName.getText().toString(),
+                    pdfObj = new pdfObj(propertyDescriptionText.getText().toString(), customer,
                             address.getText().toString(), workers.getText().toString(), reasonCall.getText().toString(),
                             editPdf.getCallNumber(), email.getText().toString(), editPdf.getWaterConclusion(), editPdf.getSewageConclusion(), editPdf.getSealingConclusion(), editPdf.getRecommendation());
                 } else {
-                    pdfObj = new pdfObj(propertyDescriptionText.getText().toString(), costumerName.getText().toString(),
+                    pdfObj = new pdfObj(propertyDescriptionText.getText().toString(), customer,
                             address.getText().toString(), workers.getText().toString(), reasonCall.getText().toString(),
                             callNumber, email.getText().toString());
                 }
-                if (costumerName.getText().toString().length() <= 1) {
+                if (customer.length() <= 1) {
                     Toast.makeText(this, getString(R.string.write_a_customerName), Toast.LENGTH_SHORT).show();
+                } else if (customer.contains(".")){  // true
+                    Toast.makeText(this, getString(R.string.customer_name_contains_dot), Toast.LENGTH_SHORT).show();
                 } else {
                     target.putExtra("PDF", pdfObj);
                     startActivity(target);

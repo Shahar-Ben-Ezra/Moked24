@@ -22,6 +22,7 @@
     <string name="description">  פירוט:</string>
     <string name="write_a_description">הכנס פירוט</string>
     <string name="write_a_customerName">הכנס שם לקוח</string>
+    <string name="customer_name_contains_dot">שם לקוח מכיל נקודה</string>
     <string name="save">שמור</string>
     <string name="search">חפש</string>
     <string name="cancel">ביטול</string>

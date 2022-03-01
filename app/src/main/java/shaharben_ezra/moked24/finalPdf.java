@@ -431,7 +431,7 @@ public class finalPdf extends AppCompatActivity {
             storageDir.mkdirs();
             Date dNow = new Date( );
             SimpleDateFormat ft = new SimpleDateFormat ("yyyy_MM_dd");
-            String filename = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/" + pdfObj.getCustomerName() +  ft.format(dNow)+ ".json";
+            String filename = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/" + pdfObj.getCustomerName().trim()+  ft.format(dNow)+ ".json";
             FileOutputStream file1 = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(file1);
             out.writeObject(finalJson.toString());

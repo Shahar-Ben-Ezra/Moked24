@@ -40,7 +40,6 @@ public class editOpenPdf extends AppCompatActivity {
         File[] files = directory.listFiles();
         if (files == null || files.length == 0) {
             Toast.makeText(this, getString(R.string.noFilesMessage), Toast.LENGTH_SHORT).show();
-            //TODO FINISH
             finish();
         }
 
@@ -48,6 +47,7 @@ public class editOpenPdf extends AppCompatActivity {
         if(files.length %2 != 0 ){ // odd
             myStringArrayLength ++;
         }
+
         String[] myStringArray = new String[myStringArrayLength];
         Log.d("Files", "Size: " + files.length);
         int count = 0;
@@ -57,6 +57,14 @@ public class editOpenPdf extends AppCompatActivity {
                 if (fileName.contains("pdf")) {
                     myStringArray[count++] = fileName.split("\\.")[0];
                 }
+            }
+
+            if(count != myStringArrayLength){
+                String[] myNewStringArray = new String[count];
+                for (int i = 0; i < count; i++) {
+                    myNewStringArray[i] = myStringArray[i];
+                }
+                myStringArray = myNewStringArray;
             }
         }
         catch (Exception e){
