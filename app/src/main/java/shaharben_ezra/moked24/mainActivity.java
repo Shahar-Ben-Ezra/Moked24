@@ -85,11 +85,11 @@ public class mainActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
             }
-//            case R.id.openSpecificFile: {
-//                Intent target = new Intent(mainActivity.this, openSpecificPdfByName.class);
-//                startActivity(target);
-//                break;
-//            }
+            case R.id.proposal_report: {
+                Intent target = new Intent(mainActivity.this, proposalReport.class);
+                startActivity(target);
+                break;
+            }
         }
     }
 
@@ -134,7 +134,7 @@ public class mainActivity extends AppCompatActivity {
             Intent emailIntent = new Intent(Intent.ACTION_SEND);
             emailIntent.setType("application/pdf");
             File filePDF = new File(finalPdf.targetPdf);
-            emailIntent.putExtra(Intent.EXTRA_STREAM, getUriForFile(getApplicationContext(), "com.mydomain.fileprovider", filePDF));
+            emailIntent.putExtra(Intent.EXTRA_STREAM, getUriForFile(getApplicationContext(), BuildConfig.APPLICATION_ID + ".provider", filePDF));
 
             StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
             StrictMode.setVmPolicy(builder.build());

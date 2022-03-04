@@ -44,8 +44,8 @@ public class editOpenPdf extends AppCompatActivity {
         }
 
         int myStringArrayLength = files.length / 2;
-        if(files.length %2 != 0 ){ // odd
-            myStringArrayLength ++;
+        if (files.length % 2 != 0) { // odd
+            myStringArrayLength++;
         }
 
         String[] myStringArray = new String[myStringArrayLength];
@@ -59,15 +59,14 @@ public class editOpenPdf extends AppCompatActivity {
                 }
             }
 
-            if(count != myStringArrayLength){
+            if (count != myStringArrayLength) {
                 String[] myNewStringArray = new String[count];
                 for (int i = 0; i < count; i++) {
                     myNewStringArray[i] = myStringArray[i];
                 }
                 myStringArray = myNewStringArray;
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         pdfFileNameAutoComplete = (AutoCompleteTextView) findViewById(R.id.pdfFileNameAutoComplete1);

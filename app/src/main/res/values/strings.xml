@@ -5,7 +5,8 @@
     <string name="title_activity_create_pdf_file">createPdfFile</string>
     <string name="propertyDescription">תיאור הנכס</string>
     <string name="reason">סיבת הקריאה</string>
-    <string name="costumerName">שם לקוח</string>כס
+    <string name="costumerName">שם לקוח</string>
+    <string name="signature">כולל אופציה לחתימה על חוזה</string>
     <string name="address">כתובת:</string>
     <string name="email">מייל:</string>
     <string name="workersName">שמות הסורקים:</string>
@@ -42,6 +43,8 @@
     <string name="headlineInHonorOf">לכבוד:</string>
     <string name="headlineAuditDate">תאריך ביקורת:</string>
     <string name="headlineNumber">מס\' קריאה:</string>
+    <string name="checkLeakUnder">הנדון : איתור נזילה תת קרקעית</string>
+    <string name="checkLeak">הנדון : בדיקה לאיתור נזילות</string>
     <string name="headlineWorkersName">שמות הסורקים:</string>
     <string name="headineAddress">כתובת:</string>
     <string name="certificateOfApproval">הנני מאשר בזאת שערך עובד מטעם חברתנו סריקה תרמו גרפית באמצעים הבאים: :</string>
@@ -78,6 +81,7 @@
     <string name="editFile">ערוך קובץ </string>
     <string name="openFile">פתח קובץ </string>
     <string name="openFileByName">פתח קובץ קיים לפי שם</string>
+    <string name="beforeWork">צור קבצים לפני עבודה</string>
     <string name="fileName">שם קובץ:</string>
     <string-array name="spinner">
         <item>בחר פירוט מובנה</item>

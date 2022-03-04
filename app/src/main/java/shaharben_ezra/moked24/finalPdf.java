@@ -84,12 +84,12 @@ public class finalPdf extends AppCompatActivity {
                     requestPermissions(permission, STORAGE_CODE);
                 } else {
                     createPdf(pdfObj.getPropertyDescription(), pdfObj.getCustomerName(),
-                            pdfObj.getFullAddress(), pdfObj.getWorkersName(),pdfObj.getReasonCall(),
+                            pdfObj.getFullAddress(), pdfObj.getWorkersName(), pdfObj.getReasonCall(),
                             pdfObj.getCallNumber());
                 }
             } else {
                 createPdf(pdfObj.getPropertyDescription(), pdfObj.getCustomerName(),
-                        pdfObj.getFullAddress(), pdfObj.getWorkersName(),pdfObj.getReasonCall(),
+                        pdfObj.getFullAddress(), pdfObj.getWorkersName(), pdfObj.getReasonCall(),
                         pdfObj.getCallNumber());
             }
         }
@@ -145,14 +145,20 @@ public class finalPdf extends AppCompatActivity {
         canvas.drawText("• סיב אופטי לצילום פנים צנרת ולאבחון כשלים במערכות ניקוז וביוב מסוג mc 30 mincam  ", PAGE_WIDTH - 95, 340, paint);
         canvas.drawText(" protimeter mini c  מד לחות • ", PAGE_WIDTH - 95, 360, paint);
 
-        canvas.drawText("ניסיון מקצועי של הבודק: ", PAGE_WIDTH - 85, 430, paint);
-        canvas.drawText("8 שנות ניסיון בגילוי תרמי, מערכות מים ואינסטלציה, ומערכות איטום,  ", PAGE_WIDTH - 85, 455, paint);
-        canvas.drawText(" . TQP לאחר הכשרה של שנה באבחון נזקי מים בסידני אוסטרליה תחת חברת", PAGE_WIDTH - 85, 475, paint);
-        canvas.drawText("למעלה מ4000 נכסים שאובחנו בארץ. ", PAGE_WIDTH - 85, 495, paint);
+//        canvas.drawText("ניסיון מקצועי של הבודק: ", PAGE_WIDTH - 85, 430, paint);
+        canvas.drawText("ניסיון מקצועי של 3 דורות באיתור נזקי צנרת ומתן פתרונות טכנולוגים. ", PAGE_WIDTH - 85, 410, paint);
+        canvas.drawText("גילוי תרמי, מערכות מים, אינסטלציה,  ומערכות איטום. לאורך השנים נתנו שירות לאלפי מקרים. ", PAGE_WIDTH - 85, 430, paint);
+//        canvas.drawText("8 שנות ניסיון בגילוי תרמי, מערכות מים ואינסטלציה, ומערכות איטום,  ", PAGE_WIDTH - 85, 455, paint);
+//        canvas.drawText(" . TQP לאחר הכשרה של שנה באבחון נזקי מים בסידני אוסטרליה תחת חברת", PAGE_WIDTH - 85, 475, paint);
+//        canvas.drawText("למעלה מ4000 נכסים שאובחנו בארץ. ", PAGE_WIDTH - 85, 495, paint);
 
-        canvas.drawText("*אני נותן חוות דעתי זו במקום עדות בבית המשפט ואני מצהיר בזאת כי ידוע לי היטב, שלעניין ", PAGE_WIDTH - 85, 575, paint);
-        canvas.drawText("הוראות החוק הפלילי בדבר עדות שקר בשבועה בבית המשפט, דין חוות דעתי זו כשהיא חתומה ", PAGE_WIDTH - 85, 595, paint);
-        canvas.drawText("על ידי כדין עדות בשבועה שנתתי בבית המשפט.", PAGE_WIDTH - 85, 615, paint);
+
+//        canvas.drawText("*אני נותן חוות דעתי זו במקום עדות בבית המשפט ואני מצהיר בזאת כי ידוע לי היטב, שלעניין ", PAGE_WIDTH - 85, 575, paint);
+//        canvas.drawText("הוראות החוק הפלילי בדבר עדות שקר בשבועה בבית המשפט, דין חוות דעתי זו כשהיא חתומה ", PAGE_WIDTH - 85, 595, paint);
+//        canvas.drawText("על ידי כדין עדות בשבועה שנתתי בבית המשפט.", PAGE_WIDTH - 85, 615, paint);
+        canvas.drawText("אני נותן חוות דעתי זו במקום עדות בבית המשפט ואני מצהיר בזאת כי ידוע לי היטב, שלעניין ", PAGE_WIDTH - 85, 480, paint);
+        canvas.drawText("הוראות החוק הפלילי בדבר עדות שקר בשבועה בבית המשפט, דין חוות דעתי זו כשהיא חתומה ", PAGE_WIDTH - 85, 500, paint);
+        canvas.drawText("על ידי כדין עדות בשבועה שנתתי בבית המשפט.", PAGE_WIDTH - 85, 520, paint);
         document.finishPage(page);
 
         // Create Page 2
@@ -377,11 +383,9 @@ public class finalPdf extends AppCompatActivity {
         if (!file.exists()) {
             file.mkdirs();
         }
-        Date dNow = new Date( );
-        SimpleDateFormat ft =
-                new SimpleDateFormat ("yyyy_MM_dd");
-
-        targetPdf = directory_path + customerName.trim() + ft.format(dNow)+ ".pdf";
+        Date dNow = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy_MM_dd");
+        targetPdf = directory_path + customerName.trim() + ft.format(dNow) + ".pdf";
         File filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));
@@ -429,9 +433,9 @@ public class finalPdf extends AppCompatActivity {
             finalJson.put("evidences", jsonArray);
             File storageDir = new File(Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files");
             storageDir.mkdirs();
-            Date dNow = new Date( );
-            SimpleDateFormat ft = new SimpleDateFormat ("yyyy_MM_dd");
-            String filename = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/" + pdfObj.getCustomerName().trim()+  ft.format(dNow)+ ".json";
+            Date dNow = new Date();
+            SimpleDateFormat ft = new SimpleDateFormat("yyyy_MM_dd");
+            String filename = Environment.getExternalStorageDirectory() + "/MokedApp/PDF_Files/" + pdfObj.getCustomerName().trim() + ft.format(dNow) + ".json";
             FileOutputStream file1 = new FileOutputStream(filename);
             ObjectOutputStream out = new ObjectOutputStream(file1);
             out.writeObject(finalJson.toString());

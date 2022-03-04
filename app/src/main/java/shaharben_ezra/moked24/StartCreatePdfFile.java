@@ -114,7 +114,7 @@ public class StartCreatePdfFile extends AppCompatActivity {
                 }
                 if (customer.length() <= 1) {
                     Toast.makeText(this, getString(R.string.write_a_customerName), Toast.LENGTH_SHORT).show();
-                } else if (customer.contains(".")){  // true
+                } else if (customer.contains(".")) {  // true
                     Toast.makeText(this, getString(R.string.customer_name_contains_dot), Toast.LENGTH_SHORT).show();
                 } else {
                     target.putExtra("PDF", pdfObj);
