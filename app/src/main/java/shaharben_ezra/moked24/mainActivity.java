@@ -1,6 +1,7 @@
 package shaharben_ezra.moked24;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,23 +17,41 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.Scope;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.DriveScopes;
+
 import java.io.File;
+import java.util.Collections;
 
 import static androidx.core.content.FileProvider.getUriForFile;
 
 public class mainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";
+
+    private static final int REQUEST_CODE_SIGN_IN = 1;
+    private static final int REQUEST_CODE_OPEN_DOCUMENT = 2;
+
     Button showPdf;
     EditText costumerName, address, workers, callNumber;
     ActionBar actionbar;
     TextView textview;
     ProgressDialog progressDialog;
     private static final int STORAGE_CODE = 1000;
+    private DriveServiceHelper mDriveServiceHelper;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -45,6 +64,54 @@ public class mainActivity extends AppCompatActivity {
             String[] permission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
             requestPermissions(permission, STORAGE_CODE);
         }
+        requestSignIn();
+    }
+
+
+    /**
+     * Starts a sign-in activity using {@link #REQUEST_CODE_SIGN_IN}.
+     */
+    private void requestSignIn() {
+        Log.d(TAG, "Requesting sign-in");
+
+        GoogleSignInOptions signInOptions =
+                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .requestScopes(new Scope(DriveScopes.DRIVE_FILE))
+                        .build();
+        GoogleSignInClient client = GoogleSignIn.getClient(this, signInOptions);
+
+        // The result of the sign-in Intent is handled in onActivityResult.
+        startActivityForResult(client.getSignInIntent(), REQUEST_CODE_SIGN_IN);
+    }
+
+    /**
+     * Handles the {@code result} of a completed sign-in activity initiated from {@link
+     * #requestSignIn()}.
+     */
+    private void handleSignInResult(Intent result) {
+        GoogleSignIn.getSignedInAccountFromIntent(result)
+                .addOnSuccessListener(googleAccount -> {
+                    Log.d(TAG, "Signed in as " + googleAccount.getEmail());
+
+                    // Use the authenticated account to sign in to the Drive service.
+                    GoogleAccountCredential credential =
+                            GoogleAccountCredential.usingOAuth2(
+                                    this, Collections.singleton(DriveScopes.DRIVE_FILE));
+                    credential.setSelectedAccount(googleAccount.getAccount());
+                    Drive googleDriveService =
+                            new Drive.Builder(
+                                    AndroidHttp.newCompatibleTransport(),
+                                    new GsonFactory(),
+                                    credential)
+                                    .setApplicationName("Drive API Migration")
+                                    .build();
+
+                    // The DriveServiceHelper encapsulates all REST API and SAF functionality.
+                    // Its instantiation is required before handling any onClick actions.
+                    mDriveServiceHelper = new DriveServiceHelper(googleDriveService);
+                })
+                .addOnFailureListener(exception -> Log.e(TAG, "Unable to sign in.", exception));
     }
 
     public void PressBtbActivity(View v) {
@@ -90,8 +157,56 @@ public class mainActivity extends AppCompatActivity {
                 startActivity(target);
                 break;
             }
+            case R.id.saveToGoogleDrive: {
+                if (!finalPdf.targetPdf.isEmpty()) {
+                    progressDialog = new ProgressDialog(mainActivity.this);
+
+                    progressDialog.setTitle("Uploading to google drive");
+                    progressDialog.setMessage("Please Wait....");
+                    progressDialog.show();
+
+                    mDriveServiceHelper.createFile(finalPdf.targetPdf, finalPdf.pdfFileName)
+                            .addOnSuccessListener(nameAndContent -> {
+                                progressDialog.dismiss();
+
+                                Toast.makeText(this, getString(R.string.successCreateGD), Toast.LENGTH_SHORT).show();
+
+                            })
+                            .addOnFailureListener(exception -> {
+                                progressDialog.dismiss();
+                                Log.e(TAG, "Unable to open file from picker.", exception);
+                            });
+
+                }
+                break;
+            }
         }
     }
+
+    /**
+     * Opens a file from its {@code uri} returned from the Storage Access Framework file picker
+     * initiated by {@link #()}.
+     */
+    private void openFileFromFilePicker(Uri uri) {
+        if (mDriveServiceHelper != null) {
+            Log.d(TAG, "Opening " + uri.getPath());
+
+            mDriveServiceHelper.openFileUsingStorageAccessFramework(getContentResolver(), uri)
+                    .addOnSuccessListener(nameAndContent -> {
+                        String name = nameAndContent.first;
+                        String content = nameAndContent.second;
+
+//                        mFileTitleEditText.setText(name);
+//                        mDocContentEditText.setText(content);
+//
+//                        // Files opened through SAF cannot be modified.
+//                        setReadOnlyMode();
+                    })
+                    .addOnFailureListener(exception ->
+                            Log.e(TAG, "Unable to open file from picker.", exception));
+        }
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -101,6 +216,23 @@ public class mainActivity extends AppCompatActivity {
                 String dat1a = data.getData().getPath();
                 int x = 4;
             }
+        }
+
+        switch (requestCode) {
+            case REQUEST_CODE_SIGN_IN:
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    handleSignInResult(data);
+                }
+                break;
+
+            case REQUEST_CODE_OPEN_DOCUMENT:
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    Uri uri = data.getData();
+                    if (uri != null) {
+                        openFileFromFilePicker(uri);
+                    }
+                }
+                break;
         }
     }
 

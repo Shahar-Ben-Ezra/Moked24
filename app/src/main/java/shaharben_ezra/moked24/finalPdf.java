@@ -43,6 +43,7 @@ public class finalPdf extends AppCompatActivity {
     private static final int PAGE_HEIGHT = 792;
     private Bitmap bmp, scaledBmp;
     public static String targetPdf = "";
+    public static String pdfFileName = "";
     private EditText waterSystem, SealingSystem, SewageSystem, RecommendationsForMaking;
     public static boolean finishFlag = false;
     private static String watersS = "";
@@ -147,7 +148,7 @@ public class finalPdf extends AppCompatActivity {
 
 //        canvas.drawText("ניסיון מקצועי של הבודק: ", PAGE_WIDTH - 85, 430, paint);
         canvas.drawText("ניסיון מקצועי של 3 דורות באיתור נזקי צנרת ומתן פתרונות טכנולוגים. ", PAGE_WIDTH - 85, 410, paint);
-        canvas.drawText("גילוי תרמי, מערכות מים, אינסטלציה,  ומערכות איטום. לאורך השנים נתנו שירות לאלפי מקרים. ", PAGE_WIDTH - 85, 430, paint);
+        canvas.drawText("גילוי תרמי, מערכות מים, אינסטלציה,  ומערכות איטום. לאורך השנים סיפקנו שירות לאלפי מקרים. ", PAGE_WIDTH - 85, 430, paint);
 //        canvas.drawText("8 שנות ניסיון בגילוי תרמי, מערכות מים ואינסטלציה, ומערכות איטום,  ", PAGE_WIDTH - 85, 455, paint);
 //        canvas.drawText(" . TQP לאחר הכשרה של שנה באבחון נזקי מים בסידני אוסטרליה תחת חברת", PAGE_WIDTH - 85, 475, paint);
 //        canvas.drawText("למעלה מ4000 נכסים שאובחנו בארץ. ", PAGE_WIDTH - 85, 495, paint);
@@ -385,7 +386,8 @@ public class finalPdf extends AppCompatActivity {
         }
         Date dNow = new Date();
         SimpleDateFormat ft = new SimpleDateFormat("yyyy_MM_dd");
-        targetPdf = directory_path + customerName.trim() + ft.format(dNow) + ".pdf";
+        pdfFileName = customerName.trim() + ft.format(dNow);
+        targetPdf = directory_path + pdfFileName + ".pdf";
         File filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));

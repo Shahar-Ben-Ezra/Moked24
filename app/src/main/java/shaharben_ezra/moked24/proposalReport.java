@@ -132,7 +132,8 @@ public class proposalReport extends AppCompatActivity {
         if (!file.exists()) {
             file.mkdirs();
         }
-        String targetPdf = directory_path + "הזמנת עבודה " + reportName + customerName.trim() + ".pdf";
+        String targetPdf = directory_path + "הזמנת עבודה " +customerName.trim() + ".pdf";
+        finalPdf.pdfFileName = "הזמנת עבודה " +customerName.trim();
         File filePath = new File(targetPdf);
         try {
             document.writeTo(new FileOutputStream(filePath));
