@@ -6,7 +6,9 @@
     <string name="propertyDescription">תיאור הנכס</string>
     <string name="reason">סיבת הקריאה</string>
     <string name="costumerName">שם לקוח</string>
+    <string name="id">תז:</string>
     <string name="signature">כולל אופציה לחתימה על חוזה</string>
+    <string name="contractor">מועסק כקבלן?</string>
     <string name="address">כתובת:</string>
     <string name="email">מייל:</string>
     <string name="workersName">שמות הסורקים:</string>
@@ -17,6 +19,7 @@
     <string name="showPdf">הראה קובץ נוכחי</string>
     <string name="saveGD">שמור לגוגל דרייב</string>
     <string name="hmercazName">המוקד לאיתור נזילות</string>
+    <string name="contractorName">אי.אס סקורה אחזקות</string>
     <string name="firstCreate">קודם צור קובץ Pdf</string>
     <string name="successCreateGD">יצרת בהצלחה קובץ בגוגל דרייב</string>
     <string name="didntFound">לא נמצא קובץ בשם זה</string>
@@ -67,6 +70,10 @@
     <string name="phonNumber">054-5600585</string>
     <string name="website">www.moked24-7.co.il</string>
     <string name="mail">company@moked24-7.co.il</string>
+    <string name="MursaContractor">עוסק מורשה מס\' 513870485</string>
+    <string name="phoneNumberContractor">052-4646023/4</string>
+    <string name="websiteContractor">www.esltd.co.il</string>
+    <string name="mailContractor">ess.skura@gmail.com</string>
     <string name="waterSystem">מערכות מים</string>
     <string name="sealingSystem">מערכות איטום</string>
     <string name="sewageSystem">מערכות ניקוז ביוב</string>

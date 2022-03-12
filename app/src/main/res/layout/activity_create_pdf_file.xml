@@ -140,7 +140,14 @@
             android:text="סיבת קריאה"
             android:textSize="20sp" />
     </LinearLayout>
-
+    <CheckBox xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/contractor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:button="@null"
+        android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+        android:paddingTop="20dp"
+        android:text="@string/contractor" />
     <Button
         android:id="@+id/addPhoto"
         android:layout_width="match_parent"

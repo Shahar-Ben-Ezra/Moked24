@@ -139,9 +139,15 @@ public class editOpenPdf extends AppCompatActivity {
                     reasonCall = summaryObj.getString("reasonCall");
                 } catch (Exception e) {
                 }
+                boolean isContractor = false;
+                try {
+                    isContractor = summaryObj.getBoolean("isContractor");
+                } catch (Exception e) {
+                    System.out.print(e);
+                }
                 pdfObj pdfObj = new pdfObj(summaryObj.getString("propertyDescription"), summaryObj.getString("customerName"),
                         summaryObj.getString("fullAddress"), summaryObj.getString("workersName"), reasonCall,
-                        parseInt(summaryObj.getString("callNumber")), summaryObj.getString("email"), summaryObj.getString("waterConclusion"), summaryObj.getString("sewageConclusion"), summaryObj.getString("sealingConclusion"), summaryObj.getString("recommendation"));
+                        parseInt(summaryObj.getString("callNumber")), summaryObj.getString("email"), summaryObj.getString("waterConclusion"), summaryObj.getString("sewageConclusion"), summaryObj.getString("sealingConclusion"), summaryObj.getString("recommendation"), isContractor);
 
                 DatePickerFragment.changeDate = summaryObj.getString("date");
                 target.putExtra("PDF", pdfObj);

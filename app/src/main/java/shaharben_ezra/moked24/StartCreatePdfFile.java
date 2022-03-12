@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class StartCreatePdfFile extends AppCompatActivity {
     public static ArrayList<evidence> evidenceArrayList = new ArrayList<>();
     private pdfObj editPdf;
     Spinner spinnerInputType;
+    private CheckBox isContractor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class StartCreatePdfFile extends AppCompatActivity {
         textViewNumberOfImages = (TextView) findViewById(R.id.textViewNumberOfImages);
         textViewNumberOfImages.setText("מספר התמונות שהוספת עד כה :" + evidenceArrayList.size());
         spinnerInputType = findViewById(R.id.spinnerInput);
+        isContractor = findViewById(R.id.contractor);
+
         Intent intent = getIntent();
         editPdf = (pdfObj) intent.getSerializableExtra("PDF");
         if (editPdf != null) {
@@ -48,6 +52,7 @@ public class StartCreatePdfFile extends AppCompatActivity {
             address.setText(editPdf.getFullAddress());
             workers.setText(editPdf.getWorkersName());
             reasonCall.setText(editPdf.getReasonCall());
+            isContractor.setChecked(editPdf.getIsContractor());
         }
         String[] arrayItems = {"0",
                 "1",
@@ -106,11 +111,11 @@ public class StartCreatePdfFile extends AppCompatActivity {
                 if (editPdf != null) {
                     pdfObj = new pdfObj(propertyDescriptionText.getText().toString(), customer,
                             address.getText().toString(), workers.getText().toString(), reasonCall.getText().toString(),
-                            editPdf.getCallNumber(), email.getText().toString(), editPdf.getWaterConclusion(), editPdf.getSewageConclusion(), editPdf.getSealingConclusion(), editPdf.getRecommendation());
+                            editPdf.getCallNumber(), email.getText().toString(), editPdf.getWaterConclusion(), editPdf.getSewageConclusion(), editPdf.getSealingConclusion(), editPdf.getRecommendation(), isContractor.isChecked());
                 } else {
                     pdfObj = new pdfObj(propertyDescriptionText.getText().toString(), customer,
                             address.getText().toString(), workers.getText().toString(), reasonCall.getText().toString(),
-                            callNumber, email.getText().toString());
+                            callNumber, email.getText().toString(), isContractor.isChecked());
                 }
                 if (customer.length() <= 1) {
                     Toast.makeText(this, getString(R.string.write_a_customerName), Toast.LENGTH_SHORT).show();

@@ -96,22 +96,38 @@ public class finalPdf extends AppCompatActivity {
         }
     }
 
-    private void SymbolsEachPage(Canvas canvas, Paint paint, int number) {
+    private void SymbolsEachPage(Canvas canvas, Paint paint, int number, boolean isContractor) {
         paint.setTextAlign(Paint.Align.RIGHT);
         paint.setFakeBoldText(true);
         paint.setTextSize(13);
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.hmoked);
-        scaledBmp = Bitmap.createScaledBitmap(bmp, 100, 100, false);
-        canvas.drawBitmap(scaledBmp, 0, 0, paint);
-        canvas.drawText(getString(R.string.hmercazName), PAGE_WIDTH - 10, 30, paint);//
-        canvas.drawText(getString(R.string.Mursa), PAGE_WIDTH - 10, 50, paint);
+        if (isContractor) {
+            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ies);
+            scaledBmp = Bitmap.createScaledBitmap(bmp, 100, 100, false);
 
-        paint.setTextAlign(Paint.Align.LEFT);
-        canvas.drawText(getString(R.string.phonNumber), 10, PAGE_HEIGHT - 60, paint);
-        canvas.drawText(getString(R.string.website), 10, PAGE_HEIGHT - 40, paint);
-        canvas.drawText(getString(R.string.mail), 10, PAGE_HEIGHT - 20, paint);
+            company company = new company(getString(R.string.contractorName), getString(R.string.MursaContractor), getString(R.string.phoneNumberContractor), getString(R.string.websiteContractor), getString(R.string.mailContractor), scaledBmp);
+            drawSymbols(canvas, paint, company);
+
+        } else {
+            bmp = BitmapFactory.decodeResource(getResources(), R.drawable.hmoked);
+            scaledBmp = Bitmap.createScaledBitmap(bmp, 100, 100, false);
+
+            company company = new company(getString(R.string.hmercazName), getString(R.string.Mursa), getString(R.string.phonNumber), getString(R.string.website), getString(R.string.mail), scaledBmp);
+            drawSymbols(canvas, paint, company);
+
+        }
         paint.setTextAlign(Paint.Align.CENTER);
         canvas.drawText(String.valueOf(number), PAGE_WIDTH / 2, 30, paint);
+    }
+
+    private void drawSymbols(Canvas canvas, Paint paint, company c) {
+        canvas.drawBitmap(c.getScaledBmp(), 0, 0, paint);
+        canvas.drawText(c.getCompanyName(), PAGE_WIDTH - 10, 30, paint);
+        canvas.drawText(c.getAuthorizedDealer(), PAGE_WIDTH - 10, 50, paint);
+
+        paint.setTextAlign(Paint.Align.LEFT);
+        canvas.drawText(c.getPhonNumber(), 10, PAGE_HEIGHT - 60, paint);
+        canvas.drawText(c.getWebsite(), 10, PAGE_HEIGHT - 40, paint);
+        canvas.drawText(c.getMail(), 10, PAGE_HEIGHT - 20, paint);
     }
 
     private void createPdf(String propertyDescription, String customerName, String fullAddress, String workersName, String reason, int cn) {
@@ -121,7 +137,7 @@ public class finalPdf extends AppCompatActivity {
         PdfDocument.Page page = document.startPage(pageInfo);// start a page
         Canvas canvas = page.getCanvas();
         Paint paint = new Paint();
-        SymbolsEachPage(canvas, paint, 1);
+        SymbolsEachPage(canvas, paint, 1, pdfObj.getIsContractor());
         String sCertDate = changeDate;
         if (changeDate == "") {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -168,7 +184,7 @@ public class finalPdf extends AppCompatActivity {
         Paint paint2 = new Paint();
         canvas = page.getCanvas();
         paint2.setFakeBoldText(true);
-        SymbolsEachPage(canvas, paint2, 2);
+        SymbolsEachPage(canvas, paint2, 2, pdfObj.getIsContractor());
         // headlines finding
 
         paint2.setTextAlign(Paint.Align.CENTER);
@@ -237,7 +253,7 @@ public class finalPdf extends AppCompatActivity {
                     Paint paint4 = new Paint();
                     canvas = page.getCanvas();
                     paint.setFakeBoldText(false);
-                    SymbolsEachPage(canvas, paint4, ppnumber++);
+                    SymbolsEachPage(canvas, paint4, ppnumber++, pdfObj.getIsContractor());
 
                     canvas.drawRect(20, 120, PAGE_WIDTH - 50, 310, paint);
                     paint.setStyle(Paint.Style.FILL);
@@ -267,7 +283,7 @@ public class finalPdf extends AppCompatActivity {
                     Paint paint4 = new Paint();
                     canvas = page.getCanvas();
                     paint.setFakeBoldText(false);
-                    SymbolsEachPage(canvas, paint4, ppnumber++);
+                    SymbolsEachPage(canvas, paint4, ppnumber++, pdfObj.getIsContractor());
                     canvas.drawRect(20, 120, PAGE_WIDTH - 50, 500, paint);
                     paint.setStyle(Paint.Style.FILL);
                     canvas.drawLine(PAGE_WIDTH - 430, 120, PAGE_WIDTH - 430, 500, paint);
@@ -298,7 +314,7 @@ public class finalPdf extends AppCompatActivity {
                 Paint paint4 = new Paint();
                 canvas = page.getCanvas();
                 paint.setFakeBoldText(false);
-                SymbolsEachPage(canvas, paint4, ppnumber++);
+                SymbolsEachPage(canvas, paint4, ppnumber++, pdfObj.getIsContractor());
                 canvas.drawRect(20, 120, PAGE_WIDTH - 50, 690, paint);
                 paint.setStyle(Paint.Style.FILL);
                 canvas.drawLine(PAGE_WIDTH - 430, 120, PAGE_WIDTH - 430, 690, paint);
@@ -332,7 +348,7 @@ public class finalPdf extends AppCompatActivity {
         Paint paint3 = new Paint();
         canvas = page.getCanvas();
         paint3.setFakeBoldText(true);
-        SymbolsEachPage(canvas, paint3, ppnumber++);
+        SymbolsEachPage(canvas, paint3, ppnumber++, pdfObj.getIsContractor());
         // headlines
         paint3.setTextAlign(Paint.Align.CENTER);
         paint3.setTextSize(18);
@@ -416,6 +432,7 @@ public class finalPdf extends AppCompatActivity {
             objToSave.put("waterConclusion", pdfObj.getWaterConclusion());
             objToSave.put("workersName", pdfObj.getWorkersName());
             objToSave.put("reasonCall", pdfObj.getReasonCall());
+            objToSave.put("isContractor", pdfObj.getIsContractor());
             objToSave.put("date", sCertDate);
             JSONObject finalJson = new JSONObject();
             finalJson.put("summary", objToSave);

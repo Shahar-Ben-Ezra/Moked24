@@ -177,6 +177,8 @@ public class mainActivity extends AppCompatActivity {
                                 Log.e(TAG, "Unable to open file from picker.", exception);
                             });
 
+                } else {
+                    Toast.makeText(this, getString(R.string.firstCreate), Toast.LENGTH_SHORT).show();
                 }
                 break;
             }
@@ -211,12 +213,12 @@ public class mainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 10) {
-            if (resultCode == RESULT_OK) {
-                String dat1a = data.getData().getPath();
-                int x = 4;
-            }
-        }
+//        if (requestCode == 10) {
+//            if (resultCode == RESULT_OK) {
+//                String dat1a = data.getData().getPath();
+//                int x = 4;
+//            }
+//        }
 
         switch (requestCode) {
             case REQUEST_CODE_SIGN_IN:

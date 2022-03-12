@@ -16,9 +16,10 @@ public class pdfObj implements Serializable {
     private String waterConclusion;
     private String sealingConclusion;
     private String sewageConclusion;
+    private boolean isContractor;
 
     public pdfObj(String propertyDescription, String customerName, String fullAddress,
-                  String workersName, String reasonCall, int callNumber, String email) {
+                  String workersName, String reasonCall, int callNumber, String email, boolean isContractor) {
         this.propertyDescription = propertyDescription;
         this.customerName = customerName;
         this.fullAddress = fullAddress;
@@ -30,10 +31,11 @@ public class pdfObj implements Serializable {
         this.sewageConclusion = "";
         this.sealingConclusion = "";
         this.recommendation = "";
+        this.isContractor = isContractor;
     }
 
     public pdfObj(String propertyDescription, String customerName, String fullAddress,
-                  String workersName, String reasonCall, int callNumber, String email, String waterConclusion, String sewageConclusion, String sealingConclusion, String recommendation) {
+                  String workersName, String reasonCall, int callNumber, String email, String waterConclusion, String sewageConclusion, String sealingConclusion, String recommendation, boolean isContractor) {
         this.propertyDescription = propertyDescription;
         this.customerName = customerName;
         this.fullAddress = fullAddress;
@@ -45,6 +47,7 @@ public class pdfObj implements Serializable {
         this.sewageConclusion = sewageConclusion;
         this.sealingConclusion = sealingConclusion;
         this.recommendation = recommendation;
+        this.isContractor = isContractor;
     }
 
     public String getPropertyDescription() {
@@ -53,6 +56,10 @@ public class pdfObj implements Serializable {
 
     public String getCustomerName() {
         return customerName;
+    }
+
+    public boolean getIsContractor() {
+        return isContractor;
     }
 
     public String getReasonCall() {
